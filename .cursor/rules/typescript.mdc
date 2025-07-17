@@ -1,0 +1,78 @@
+---
+description: TypeScript kuralları ve en iyi uygulamaları
+auto_attachments:
+  - typescript.md
+---
+
+# TypeScript Kuralları
+
+## Type Kullanımı
+- Type-only importlar tercih edilmeli
+- Fonksiyonlarda explicit return type kullanılmalı
+
+## Best Practices
+- Interface yerine type kullanımı tercih edilmeli
+- Generic tipler anlamlı isimlendirilmeli
+- Union types için discriminated unions kullanılmalı
+- Partial ve Pick gibi utility types etkin kullanılmalı
+- Enum yerine union types tercih edilmeli
+- Type assertion yerine type narrowing kullanılmalı
+- Null checks için optional chaining kullanılmalı
+- Type inference'a güvenilmemeli, explicit type tanımlanmalı
+
+## Örnek Type Kullanımı
+```typescript
+// ❌ Yanlış
+const getData = async () => {
+  const response = await api.get('/data');
+  return response;
+};
+
+// ✅ Doğru
+type ApiResponse<T> = {
+  data: T;
+  status: 'success' | 'error';
+  message?: string;
+};
+
+type UserData = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+const getData = async (): Promise<ApiResponse<UserData>> => {
+  const response = await api.get<UserData>('/data');
+  return {
+    data: response.data,
+    status: 'success',
+  };
+};
+
+// Discriminated Unions
+type SuccessState = {
+  type: 'success';
+  data: UserData;
+};
+
+type ErrorState = {
+  type: 'error';
+  error: string;
+};
+
+type State = SuccessState | ErrorState;
+
+// Type Narrowing
+function handleState(state: State) {
+  if (state.type === 'success') {
+    // TypeScript knows state.data exists
+    console.log(state.data);
+  } else {
+    // TypeScript knows state.error exists
+    console.error(state.error);
+  }
+}
+```
+
+}
+```

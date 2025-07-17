@@ -1,0 +1,70 @@
+---
+description: Tema kuralları ve renk yönetimi
+auto_attachments:
+  - colors.ts
+---
+
+# Tema Kuralları
+
+## Renk Yönetimi
+- Tüm renkler colors.ts dosyasında tanımlanmalı
+- Doğrudan renk kodları kullanılmamalı
+
+## Best Practices
+- Renk paletleri tema bazlı organize edilmeli
+- Dark/Light mode için ayrı renk setleri tanımlanmalı
+- Renk değişkenleri semantic isimlendirilmeli
+- Opacity değerleri standardize edilmeli
+- Gradient renkleri preset olarak tanımlanmalı
+- Brand renkleri ayrı gruplanmalı
+- Erişilebilirlik için contrast oranları kontrol edilmeli
+
+## Örnek Tema Yapısı
+```typescript
+// colors.ts
+export const colors = {
+  brand: {
+    primary: '#007AFF',
+    secondary: '#5856D6',
+    accent: '#FF2D55',
+  },
+  semantic: {
+    success: '#34C759',
+    warning: '#FFCC00',
+    error: '#FF3B30',
+    info: '#5856D6',
+  },
+  grayscale: {
+    black: '#000000',
+    darkGray: '#1C1C1E',
+    gray: '#8E8E93',
+    lightGray: '#D1D1D6',
+    white: '#FFFFFF',
+  },
+  opacity: {
+    light: 0.2,
+    medium: 0.5,
+    high: 0.8,
+  },
+  gradients: {
+    primary: ['#007AFF', '#5856D6'],
+    secondary: ['#FF2D55', '#FF3B30'],
+  },
+};
+
+// theme.ts
+export const lightTheme = {
+  background: colors.grayscale.white,
+  text: colors.grayscale.black,
+  // ...other theme values
+};
+
+export const darkTheme = {
+  background: colors.grayscale.black,
+  text: colors.grayscale.white,
+  // ...other theme values
+};
+```
+
+};
+```

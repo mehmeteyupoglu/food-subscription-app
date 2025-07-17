@@ -1,0 +1,68 @@
+---
+description: Form yönetimi kuralları ve best practices
+auto_attachments:
+  - forms.md
+---
+
+# Form Yönetimi Kuralları
+
+## Form Validasyon ve State Yönetimi
+- Form işlemleri için react-hook-form ve zod kütüphaneleri kullanılmalı
+- Form validasyonları için zod şeması zorunlu
+- Form state yönetimi react-hook-form ile yapılmalı
+- Validation hataları gösterilmeli
+
+## Best Practices
+- Her form için ayrı bir zod şeması tanımlanmalı
+- Form şemaları ayrı dosyalarda tutulmalı
+- Form submit işlemleri async/await ile yapılmalı
+- Loading durumları kullanıcıya gösterilmeli
+- Form hataları kullanıcı dostu mesajlarla gösterilmeli
+- Form resetleme ve temizleme işlevleri eklenmelidir
+- Form alanları için uygun keyboard type'ları kullanılmalı
+
+## Örnek Form Yapısı
+```typescript
+// schemas/loginForm.ts
+export const loginSchema = z.object({
+  email: z.string().email('Geçerli bir email adresi giriniz'),
+  password: z.string().min(6, 'Şifre en az 6 karakter olmalıdır'),
+});
+
+// components/LoginForm.tsx
+type LoginFormData = z.infer<typeof loginSchema>;
+
+export const LoginForm = () => {
+  const { control, handleSubmit } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      // form submission logic
+    } catch (error) {
+      // error handling
+    }
+  };
+
+  return (
+    <Form>
+      <Controller
+        control={control}
+        name="email"
+        render={({ field, fieldState }) => (
+          <TextInput
+            {...field}
+            error={fieldState.error?.message}
+            keyboardType="email-address"
+          />
+        )}
+      />
+      {/* other form fields */}
+    </Form>
+  );
+};
+```
+
+};
+```
