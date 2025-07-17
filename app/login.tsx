@@ -1,7 +1,3 @@
-import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { zodResolver } from "@hookform/resolvers/zod";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Controller, useForm } from "react-hook-form";
 import {
   ActivityIndicator,
   Image,
@@ -12,10 +8,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+
+import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { zodResolver } from "@hookform/resolvers/zod";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import colors from "./colors";
-import Button from "./components/Button";
-import PasswordInput from "./components/PasswordInput";
+
+import colors from "@/colors";
+import Button from "@/components/Button";
+import PasswordInput from "@/components/PasswordInput";
 
 const TURKISH_PHONE_REGEX = /^(5\d{2}-\d{3}-\d{2}-\d{2})$/;
 function formatTurkishPhone(input: string): string {

@@ -1,6 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+
 import TextInput from "./TextInput";
 
 interface PasswordInputProps {
