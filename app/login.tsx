@@ -1,7 +1,6 @@
-import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   ActivityIndicator,
@@ -14,6 +13,7 @@ import {
   View,
 } from "react-native";
 import { z } from "zod";
+import colors from "./colors";
 import Button from "./components/Button";
 import PasswordInput from "./components/PasswordInput";
 
@@ -44,7 +44,7 @@ const loginSchema = z.object({
 });
 type FormValues = z.infer<typeof loginSchema>;
 
-const LoginScreen: React.FC = () => {
+export default function LoginScreen() {
   const {
     control,
     handleSubmit,
@@ -73,7 +73,7 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FF7A1A" }}>
+    <View style={{ flex: 1, backgroundColor: colors.primary }}>
       {/* Decorative PNG shapes */}
       <View style={styles.decorativeTopLeft}>
         <Image source={require("../assets/Ellipse 1005.png")} />
@@ -90,7 +90,7 @@ const LoginScreen: React.FC = () => {
         >
           <Text style={styles.skipText}>Atla</Text>
           <View style={styles.skipCircle}>
-            <AntDesign name="arrowright" size={20} color="#222" />
+            <AntDesign name="arrowright" size={20} color={colors.secondary} />
           </View>
         </TouchableOpacity>
       </View>
@@ -160,11 +160,12 @@ const LoginScreen: React.FC = () => {
               control={control}
               name="remember"
               render={({ field: { value, onChange } }) => (
-                <View style={styles.checkboxRow}>
-                  <TouchableOpacity
-                    onPress={() => onChange(!value)}
-                    style={styles.checkboxBox}
-                  >
+                <TouchableOpacity
+                  onPress={() => onChange(!value)}
+                  style={styles.checkboxRow}
+                  activeOpacity={0.7}
+                >
+                  <View style={styles.checkboxBox}>
                     {value ? (
                       <Ionicons name="checkbox" size={20} color="#FF7A1A" />
                     ) : (
@@ -174,9 +175,9 @@ const LoginScreen: React.FC = () => {
                         color="#C7C7C7"
                       />
                     )}
-                  </TouchableOpacity>
+                  </View>
                   <Text style={styles.checkboxLabel}>Beni hatırla</Text>
-                </View>
+                </TouchableOpacity>
               )}
             />
             <TouchableOpacity>
@@ -196,29 +197,11 @@ const LoginScreen: React.FC = () => {
               <Text style={styles.registerText}>KAYDOL</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.orText}>Ya da</Text>
-          <View style={styles.socialRow}>
-            <TouchableOpacity
-              style={[styles.socialButton, { backgroundColor: "#3b5998" }]}
-            >
-              <FontAwesome name="facebook" size={24} color="#fff" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.socialButton, { backgroundColor: "#1da1f2" }]}
-            >
-              <AntDesign name="twitter" size={24} color="#fff" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.socialButton, { backgroundColor: "#222" }]}
-            >
-              <AntDesign name="apple1" size={24} color="#fff" />
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   decorativeTopLeft: {
@@ -236,17 +219,17 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    paddingTop: 60,
+    paddingTop: 90,
     paddingBottom: 32,
     alignItems: "center",
   },
   headerContainer: {
     alignItems: "center",
-    marginBottom: 18,
+    marginBottom: 12,
     zIndex: 2,
   },
   title: {
-    color: "#fff",
+    color: colors.background,
     fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
@@ -254,20 +237,20 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   subtitle: {
-    color: "#fff",
+    color: colors.background,
     fontSize: 15,
     textAlign: "center",
     opacity: 0.85,
     fontWeight: "400",
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
     borderRadius: 28,
     padding: 24,
     width: "90%",
     alignSelf: "center",
-    marginTop: 12,
-    shadowColor: "#000",
+    marginTop: 0,
+    shadowColor: colors.secondary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 8,
@@ -276,23 +259,23 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
   },
   inputGroup: {
-    marginBottom: 18,
+    marginBottom: 12,
     width: "100%",
   },
   label: {
     fontSize: 13.5,
-    color: "#222",
+    color: colors.secondary,
     fontWeight: "500",
     marginBottom: 7,
     marginLeft: 2,
   },
   input: {
-    backgroundColor: "#F6F8FB",
+    backgroundColor: colors.inputBackground,
     borderRadius: 12,
     paddingHorizontal: 14,
     paddingVertical: 10,
     fontSize: 15,
-    color: "#222",
+    color: colors.secondary,
     fontWeight: "500",
     marginBottom: 2,
     width: "100%",
@@ -302,47 +285,47 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: 8,
   },
   checkboxRow: {
     flexDirection: "row",
-    alignItems: "stretch",
+    alignItems: "center",
   },
   checkboxBox: {
     marginRight: 6,
   },
   checkboxLabel: {
-    color: "#888",
+    color: colors.gray,
     fontSize: 14,
   },
   forgotPasswordText: {
-    color: "#FF7A1A",
+    color: colors.primary,
     fontSize: 13,
     fontWeight: "500",
   },
   loginButton: {
-    marginTop: 8,
-    marginBottom: 18,
+    marginTop: 18,
+    marginBottom: 8,
   },
   footerRow: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 8,
+    marginTop: 24,
   },
   footerText: {
-    color: "#888",
+    color: colors.gray,
     fontSize: 15,
     marginRight: 4,
   },
   registerText: {
-    color: "#FF7A1A",
+    color: colors.primary,
     fontWeight: "bold",
     fontSize: 15,
   },
   orText: {
     textAlign: "center",
-    color: "#888",
+    color: colors.gray,
     marginVertical: 12,
     fontSize: 15,
   },
@@ -361,7 +344,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: 8,
   },
-  errorText: { color: "#FF3B30", fontSize: 13, marginBottom: 8, marginLeft: 2 },
+  errorText: {
+    color: colors.error,
+    fontSize: 13,
+    marginBottom: 8,
+    marginLeft: 2,
+  },
   skipContainer: {
     position: "absolute",
     top: 36,
@@ -375,7 +363,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   skipText: {
-    color: "#fff",
+    color: colors.background,
     fontSize: 16,
     fontWeight: "500",
     marginRight: 8,
@@ -384,14 +372,12 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
     alignItems: "center",
     justifyContent: "center",
   },
   inputError: {
-    borderColor: "#FF3B30",
+    borderColor: colors.error,
     borderWidth: 1.5,
   },
 });
-
-export default LoginScreen;
