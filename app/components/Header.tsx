@@ -1,86 +1,84 @@
 import React from "react";
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import colors from "@/colors";
 
 interface HeaderProps {
-  title: string;
-  subtitle?: string;
-  right?: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
+  showSkipButton?: boolean;
+  onSkip?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, subtitle, right, style }) => {
+const Header: React.FC<HeaderProps> = ({ showSkipButton = false, onSkip }) => {
   return (
-    <View style={[styles.container, style]}>
-      {/* Sol üst dekoratif şekil */}
-      <View style={styles.topLeftDecoration} />
-      {/* Sağ üst dekoratif şekil */}
-      <View style={styles.topRightDecoration} />
-      {right && <View style={styles.right}>{right}</View>}
-      <Text style={styles.title}>{title}</Text>
-      {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
-    </View>
+    <>
+      {/* Decorative PNG shapes */}
+      <View style={styles.decorativeTopLeft}>
+        <Image source={require("../../assets/Ellipse 1005.png")} />
+      </View>
+      <View style={styles.decorativeTopRight}>
+        <Image source={require("../../assets/Vector 142.png")} />
+      </View>
+
+      {/* Skip button */}
+      {showSkipButton && onSkip && (
+        <View style={styles.skipContainer}>
+          <TouchableOpacity style={styles.skipButton} onPress={onSkip}>
+            <View style={styles.skipContent}>
+              <Text style={styles.skipText}>Atla</Text>
+              <View style={styles.skipCircle}>
+                <Text style={styles.skipArrow}>→</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FF7A1A",
-    paddingTop: 48,
-    paddingBottom: 24,
-    paddingHorizontal: 24,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-    position: "relative",
-    overflow: "visible",
-  },
-  topLeftDecoration: {
+  decorativeTopLeft: {
     position: "absolute",
-    top: -24,
-    left: -24,
-    width: 80,
-    height: 80,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 80,
-    borderBottomLeftRadius: 80,
-    borderWidth: 0,
-    borderStyle: "solid",
-    backgroundColor: "transparent",
-    zIndex: 10,
-    overflow: "hidden",
+    top: 0,
+    left: 0,
+    zIndex: 1,
   },
-  topRightDecoration: {
+  decorativeTopRight: {
     position: "absolute",
-    top: 12,
-    right: -12,
-    width: 60,
-    height: 60,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: "#222",
-    borderStyle: "dashed",
-    zIndex: 10,
-    backgroundColor: "transparent",
+    top: 0,
+    right: 0,
+    zIndex: 1,
   },
-  title: {
-    color: "#fff",
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 6,
-    marginTop: 8,
-  },
-  subtitle: {
-    color: "#fff",
-    fontSize: 15,
-    textAlign: "center",
-    opacity: 0.85,
-    fontWeight: "400",
-  },
-  right: {
+  skipContainer: {
     position: "absolute",
-    top: 16,
-    right: 16,
-    zIndex: 20,
+    top: 36,
+    right: 24,
+    zIndex: 2,
+  },
+  skipButton: {
+    padding: 8,
+  },
+  skipContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  skipText: {
+    color: colors.background,
+    fontSize: 16,
+    fontWeight: "500",
+    marginRight: 8,
+  },
+  skipCircle: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: colors.background,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  skipArrow: {
+    color: colors.primary,
+    fontSize: 16,
   },
 });
 
