@@ -2,6 +2,7 @@
 const typescriptPlugin = require("@typescript-eslint/eslint-plugin");
 const typescriptParser = require("@typescript-eslint/parser");
 const importPlugin = require("eslint-plugin-import");
+const prettierPlugin = require("eslint-plugin-prettier");
 const reactPlugin = require("eslint-plugin-react");
 const reactHooksPlugin = require("eslint-plugin-react-hooks");
 
@@ -13,6 +14,7 @@ module.exports = [
       "react-hooks": reactHooksPlugin,
       "@typescript-eslint": typescriptPlugin,
       import: importPlugin,
+      prettier: prettierPlugin,
     },
     languageOptions: {
       parser: typescriptParser,
@@ -40,35 +42,55 @@ module.exports = [
       },
     },
     rules: {
+      // Unused variables rules
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+      "no-unused-vars": "off", // Turn off base rule as it can report incorrect errors
+      // Import rules
       "import/order": [
         "warn",
         {
-          groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
+          ],
           pathGroups: [
             {
               pattern: "react",
               group: "builtin",
-              position: "before"
+              position: "before",
             },
             {
               pattern: "react-native",
               group: "builtin",
-              position: "before"
+              position: "before",
             },
             {
               pattern: "@/**",
               group: "internal",
-              position: "after"
-            }
+              position: "after",
+            },
           ],
           distinctGroup: false,
           pathGroupsExcludedImportTypes: ["react", "react-native"],
           "newlines-between": "always",
           alphabetize: {
             order: "asc",
-            caseInsensitive: true
-          }
-        }
+            caseInsensitive: true,
+          },
+        },
       ],
       "sort-imports": [
         "warn",
@@ -77,9 +99,9 @@ module.exports = [
           ignoreDeclarationSort: true,
           ignoreMemberSort: false,
           memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-          allowSeparatedGroups: true
-        }
-      ]
+          allowSeparatedGroups: true,
+        },
+      ],
     },
   },
 ];
