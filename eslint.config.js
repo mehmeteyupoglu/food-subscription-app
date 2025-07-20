@@ -42,16 +42,52 @@ module.exports = [
       },
     },
     rules: {
-      // Unused variables rules
+      // TypeScript specific rules
+      "@typescript-eslint/no-explicit-any": "error", // any kullanımını yasaklar
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports", // type importları için "import type" kullanımını zorunlu kılar
+          fixStyle: "separate-type-imports", // type ve value importlarını ayrı satırlarda tutar
+        },
+      ],
+
+      // React import rules
+      "react/jsx-uses-react": "off", // React 17+ JSX transform ile gereksiz
+      "react/react-in-jsx-scope": "off", // React 17+ JSX transform ile gereksiz
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
           caughtErrorsIgnorePattern: "^_",
+          ignoreRestSiblings: false, // Daha sıkı kontrol
+          args: "all",
+          caughtErrors: "all",
+          destructuredArrayIgnorePattern: "^_",
+          // Import edilen ama kullanılmayan değişkenler için sıkı kontrol
+          vars: "all",
         },
       ],
+
+      // React namespace kullanımını kontrol et
+      "react/jsx-uses-vars": "error", // JSX'te kullanılan değişkenleri kontrol eder
+
+      // React component function declaration rules
+      "react/function-component-definition": [
+        "error",
+        {
+          namedComponents: "function-declaration", // Named componentleri function declaration olarak zorla
+          unnamedComponents: "arrow-function", // Unnamed (callback) componentler arrow function olabilir
+        },
+      ],
+
+      // React component export rules
+      "import/prefer-default-export": "error", // Single export varsa default export kullanımını zorunlu kılar
+      "import/no-default-export": "off", // Default export'u yasaklama (off çünkü prefer ediyoruz)
+
       "no-unused-vars": "off", // Turn off base rule as it can report incorrect errors
+
       // Import rules
       "import/order": [
         "warn",

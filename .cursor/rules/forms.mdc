@@ -1,20 +1,16 @@
----
-description: Form yönetimi kuralları ve best practices
-auto_attachments:
-  - forms.md
----
-
 # Form Yönetimi Kuralları
 
 ## Form Validasyon ve State Yönetimi
-- Form işlemleri için react-hook-form ve zod kütüphaneleri kullanılmalı
-- Form validasyonları için zod şeması zorunlu
-- Form state yönetimi react-hook-form ile yapılmalı
+
+- Form işlemleri için React useState hook'u kullanılmalı
+- Form validasyonları manuel olarak yapılmalı
 - Validation hataları gösterilmeli
+- Form state yönetimi basit ve anlaşılır olmalı
 
 ## Best Practices
-- Her form için ayrı bir zod şeması tanımlanmalı
-- Form şemaları ayrı dosyalarda tutulmalı
+
+- Her form için interface tanımlanmalı
+- Form validasyon fonksiyonları ayrı yazılmalı
 - Form submit işlemleri async/await ile yapılmalı
 - Loading durumları kullanıcıya gösterilmeli
 - Form hataları kullanıcı dostu mesajlarla gösterilmeli
@@ -22,46 +18,83 @@ auto_attachments:
 - Form alanları için uygun keyboard type'ları kullanılmalı
 
 ## Örnek Form Yapısı
+
 ```typescript
-// schemas/loginForm.ts
-export const loginSchema = z.object({
-  email: z.string().email('Geçerli bir email adresi giriniz'),
-  password: z.string().min(6, 'Şifre en az 6 karakter olmalıdır'),
-});
+// Form interface
+interface FormData {
+  email: string;
+  password: string;
+}
 
-// components/LoginForm.tsx
-type LoginFormData = z.infer<typeof loginSchema>;
-
+// Form component
 export const LoginForm = () => {
-  const { control, handleSubmit } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const [formData, setFormData] = useState<FormData>({
+    email: '',
+    password: '',
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      // form submission logic
-    } catch (error) {
-      // error handling
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+
+  const handleInputChange = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: Partial<FormData> = {};
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email alanı zorunludur';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Geçerli bir email adresi giriniz';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Şifre zorunludur';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Şifre en az 6 karakter olmalıdır';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      // Form submission logic
+      console.log('Form data:', formData);
     }
   };
 
   return (
-    <Form>
-      <Controller
-        control={control}
-        name="email"
-        render={({ field, fieldState }) => (
-          <TextInput
-            {...field}
-            error={fieldState.error?.message}
-            keyboardType="email-address"
-          />
-        )}
+    <View>
+      <TextInput
+        label="EMAIL"
+        value={formData.email}
+        onChangeText={(value) => handleInputChange('email', value)}
+        placeholder="email@example.com"
+        keyboardType="email-address"
+        error={errors.email}
       />
-      {/* other form fields */}
-    </Form>
+
+      <TextInput
+        label="ŞİFRE"
+        value={formData.password}
+        onChangeText={(value) => handleInputChange('password', value)}
+        placeholder="••••••••"
+        secureTextEntry
+        error={errors.password}
+      />
+
+      <Button title="GİRİŞ YAP" onPress={handleSubmit} />
+    </View>
   );
 };
+```
+
 ```
 
 };
