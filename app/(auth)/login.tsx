@@ -5,8 +5,8 @@ import { Link } from "expo-router";
 
 import AuthPageContainer from "@/(auth)/components/AuthPageContainer";
 import colors from "@/colors";
-import Button from "@/components/Button";
-import TextInput from "@/components/TextInput";
+import CustomButton from "@/components/CustomButton";
+import CustomTextInput from "@/components/CustomTextInput";
 
 interface FormData {
   phoneNumber: string;
@@ -63,7 +63,7 @@ export default function Login() {
       title="Giriş Yap"
       subtitle="Lütfen mevcut hesabınıza giriş yapın"
     >
-      <TextInput
+      <CustomTextInput
         label="TELEFON NUMARANIZ"
         value={formData.phoneNumber}
         onChangeText={value => handleInputChange("phoneNumber", value)}
@@ -72,7 +72,7 @@ export default function Login() {
         error={errors.phoneNumber}
       />
 
-      <TextInput
+      <CustomTextInput
         label="ŞİFRE"
         value={formData.password}
         onChangeText={value => handleInputChange("password", value)}
@@ -90,7 +90,11 @@ export default function Login() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button title="GİRİŞ YAP" onPress={handleLogin} variant="primary" />
+        <CustomButton
+          title="GİRİŞ YAP"
+          onPress={handleLogin}
+          variant="primary"
+        />
       </View>
 
       <View style={styles.registerContainer}>
