@@ -5,10 +5,10 @@ import { router } from "expo-router";
 
 import AuthPageContainer from "@/(auth)/components/AuthPageContainer";
 import colors from "@/colors";
-import Button from "@/components/Button";
 import CountdownButton from "@/components/CountdownButton";
+import CustomButton from "@/components/CustomButton";
+import CustomTextInput from "@/components/CustomTextInput";
 import OTPInput from "@/components/OTPInput";
-import TextInput from "@/components/TextInput";
 
 type Step = "phone" | "verification" | "newPassword";
 
@@ -119,7 +119,7 @@ export default function ForgotPassword() {
           subtitle: "Lütfen telefon numaranızı yazın",
           content: (
             <>
-              <TextInput
+              <CustomTextInput
                 label="TELEFON NUMARASI"
                 value={formData.phoneNumber}
                 onChangeText={value => handleInputChange("phoneNumber", value)}
@@ -128,7 +128,7 @@ export default function ForgotPassword() {
                 error={errors.phoneNumber}
               />
               <View style={styles.buttonContainer}>
-                <Button
+                <CustomButton
                   title="ONAYLA"
                   onPress={handleSendCode}
                   variant="primary"
@@ -163,7 +163,7 @@ export default function ForgotPassword() {
               />
 
               <View style={styles.buttonContainer}>
-                <Button
+                <CustomButton
                   title="DOĞRULA"
                   onPress={handleVerifyCode}
                   variant="primary"
@@ -179,7 +179,7 @@ export default function ForgotPassword() {
           subtitle: "Lütfen yeni şifrenizi girin",
           content: (
             <>
-              <TextInput
+              <CustomTextInput
                 label="ŞİFRENİZ"
                 value={formData.password}
                 onChangeText={value => handleInputChange("password", value)}
@@ -188,7 +188,7 @@ export default function ForgotPassword() {
                 error={errors.password}
               />
 
-              <TextInput
+              <CustomTextInput
                 label="ŞİFREYİ TEKRAR GİRİN"
                 value={formData.confirmPassword}
                 onChangeText={value =>
@@ -200,7 +200,7 @@ export default function ForgotPassword() {
               />
 
               <View style={styles.buttonContainer}>
-                <Button
+                <CustomButton
                   title="ONAYLA"
                   onPress={handleResetPassword}
                   variant="primary"
