@@ -22,7 +22,6 @@ function AuthLayoutContent() {
           showSkipButton: true,
           showBackButton: false,
         };
-import { Stack } from "expo-router";
       default:
         return {
           showSkipButton: false,
