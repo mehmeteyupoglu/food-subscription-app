@@ -12,17 +12,17 @@ import { Ionicons } from "@expo/vector-icons";
 
 import colors from "@/colors";
 
-interface TextInputProps extends Omit<RNTextInputProps, "style"> {
+interface CustomTextInputProps extends Omit<RNTextInputProps, "style"> {
   label: string;
   error?: string;
 }
 
-export default function TextInput({
+export default function CustomTextInput({
   label,
   error,
   secureTextEntry,
   ...props
-}: TextInputProps) {
+}: CustomTextInputProps) {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
   const toggleSecureEntry = () => {

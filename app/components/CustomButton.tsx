@@ -2,19 +2,19 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import colors from "@/colors";
 
-interface ButtonProps {
+interface CustomButtonProps {
   title: string;
   onPress: () => void;
   variant?: "primary" | "secondary";
   disabled?: boolean;
 }
 
-export default function Button({
+export default function CustomButton({
   title,
   onPress,
   variant = "primary",
   disabled = false,
-}: ButtonProps) {
+}: CustomButtonProps) {
   return (
     <TouchableOpacity
       style={[
