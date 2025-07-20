@@ -5,10 +5,10 @@ import { Link, router } from "expo-router";
 
 import AuthPageContainer from "@/(auth)/components/AuthPageContainer";
 import colors from "@/colors";
-import Button from "@/components/Button";
 import CountdownButton from "@/components/CountdownButton";
+import CustomButton from "@/components/CustomButton";
+import CustomTextInput from "@/components/CustomTextInput";
 import OTPInput from "@/components/OTPInput";
-import TextInput from "@/components/TextInput";
 
 type Step = "register" | "verification";
 
@@ -117,7 +117,7 @@ export default function Register() {
           subtitle: "Hesabınızı oluşturun ve hemen başlayın",
           content: (
             <>
-              <TextInput
+              <CustomTextInput
                 label="ADINIZ"
                 value={formData.firstName}
                 onChangeText={value => handleInputChange("firstName", value)}
@@ -125,7 +125,7 @@ export default function Register() {
                 error={errors.firstName}
               />
 
-              <TextInput
+              <CustomTextInput
                 label="SOYADINIZ"
                 value={formData.lastName}
                 onChangeText={value => handleInputChange("lastName", value)}
@@ -133,7 +133,7 @@ export default function Register() {
                 error={errors.lastName}
               />
 
-              <TextInput
+              <CustomTextInput
                 label="TELEFON NUMARANIZ"
                 value={formData.phoneNumber}
                 onChangeText={value => handleInputChange("phoneNumber", value)}
@@ -142,7 +142,7 @@ export default function Register() {
                 error={errors.phoneNumber}
               />
 
-              <TextInput
+              <CustomTextInput
                 label="ŞİFRENİZ"
                 value={formData.password}
                 onChangeText={value => handleInputChange("password", value)}
@@ -151,7 +151,7 @@ export default function Register() {
                 error={errors.password}
               />
 
-              <TextInput
+              <CustomTextInput
                 label="ŞİFREYİ TEKRAR GİRİN"
                 value={formData.confirmPassword}
                 onChangeText={value =>
@@ -163,7 +163,7 @@ export default function Register() {
               />
 
               <View style={styles.buttonContainer}>
-                <Button
+                <CustomButton
                   title="KAYDOL"
                   onPress={handleRegisterStep}
                   variant="primary"
@@ -207,7 +207,7 @@ export default function Register() {
               />
 
               <View style={styles.buttonContainer}>
-                <Button
+                <CustomButton
                   title="DOĞRULA"
                   onPress={handleVerifyCode}
                   variant="primary"
