@@ -27,6 +27,11 @@ function AuthLayoutContent() {
           showSkipButton: false,
           showBackButton: true,
         };
+      case "forgot-password":
+        return {
+          showSkipButton: false,
+          showBackButton: true,
+        };
       default:
         return {
           showSkipButton: false,
