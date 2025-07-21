@@ -1,0 +1,74 @@
+---
+description: Import Düzeni Kuralları
+auto_attachments:
+  - .cursor/rules/imports.mdc
+---
+
+# Import Düzeni Kuralları
+
+## Import Sıralaması
+İmport ifadeleri aşağıdaki sıra ve gruplandırma ile yazılmalıdır:
+
+1. React ve React Native core importları
+```typescript
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
+```
+
+2. Üçüncü parti kütüphane importları
+```typescript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+```
+
+3. React Native component importları (boş satır ile ayrılmış)
+```typescript
+import { Button } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+```
+
+4. Yerel dosya importları (@/ prefix ile) (boş satır ile ayrılmış)
+```typescript
+import { TextInput } from '@/components/TextInput';
+import { useTheme } from '@/hooks/useTheme';
+```
+
+## Kurallar
+- Her import grubu arasında bir boş satır bırakılmalıdır
+- Import ifadeleri alfabetik sırada olmalıdır
+- Relative path yerine alias (@/) kullanılmalıdır
+- Kullanılmayan importlar kaldırılmalıdır
+- Type importları için `type` keyword'ü kullanılmalıdır
+
+## Örnekler
+
+### ❌ Yanlış
+```typescript
+import { View } from 'react-native'
+import { Button } from '@/components/Button'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { TextInput } from 'react-native-paper'
+import '../styles/main.css'
+```
+
+### ✅ Doğru
+```typescript
+import React from 'react';
+import { View } from 'react-native';
+
+import { useForm } from 'react-hook-form';
+
+import { TextInput } from 'react-native-paper';
+
+import { Button } from '@/components/Button';
+```
+
+import { Button } from '@/components/Button';
+```
+
+import { Button } from '@/components/Button';
+```
+
+import { Button } from '@/components/Button';
+```

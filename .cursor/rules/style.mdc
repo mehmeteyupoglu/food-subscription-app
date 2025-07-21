@@ -1,0 +1,49 @@
+---
+description: Kod stil kuralları
+auto_attachments:
+  - .cursor/rules/style.mdc
+---
+
+# Kod Stil Kuralları
+
+## Genel Stil Kuralları
+- Tek tırnak kullanılmalı
+- Dosya sonunda yeni satır olmalı
+- Satır sonu boşlukları temizlenmeli
+- Maksimum satır uzunluğu 100 karakter
+
+## Best Practices
+- Anlamlı değişken isimleri kullanılmalı
+- Fonksiyon isimleri eylemi tanımlamalı
+- Yorum satırları açıklayıcı olmalı
+- Kodda boş satır kullanımı tutarlı olmalı
+- Girintileme için 2 space kullanılmalı
+- Boolean değişken isimleri is/has/should ile başlamalı
+- Magic number'lar const olarak tanımlanmalı
+- Uzun if/else zincirleri yerine switch/case tercih edilmeli
+
+## Örnek Stil Kullanımı
+```typescript
+// ❌ Yanlış
+const x = 5;
+const y = true;
+function do_something(a: number) {
+    if(a>5){return true}
+    else{return false}
+}
+
+// ✅ Doğru
+const MAX_RETRY_COUNT = 5;
+const isValidResponse = true;
+
+function validateUserAge(age: number): boolean {
+  if (age < MIN_AGE) {
+    return false;
+  }
+  
+  return age <= MAX_AGE;
+}
+```
+
+}
+```

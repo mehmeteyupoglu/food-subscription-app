@@ -1,0 +1,61 @@
+---
+description: React Native Best Practices
+auto_attachments:
+  - react-native-gesture-handler
+  - react-navigation
+---
+
+# React Native Best Practices
+
+## Component ve Hook Kuralları
+- Component isimlendirmeleri PascalCase
+- Hook isimlendirmeleri useCamelCase
+- Utility fonksiyonları camelCase
+- Sabitler UPPER_SNAKE_CASE
+
+## Performance ve Platform
+- Gereksiz re-render'lar önlenmeli
+- Büyük listeler için FlatList kullanılmalı
+- Platform özel kodlar ayrı dosyalarda tutulmalı
+- Responsive tasarım için relative birimler kullanılmalı
+
+## Best Practices
+- useCallback ve useMemo optimizasyonları doğru kullanılmalı
+- Büyük asset'ler için lazy loading yapılmalı
+- Network istekleri için error boundary kullanılmalı
+- Animasyonlar için Animated API tercih edilmeli
+- Gesture'lar için react-native-gesture-handler kullanılmalı
+- Navigation için react-navigation kullanılmalı
+- Image'lar için uygun boyut ve format kullanılmalı
+- Deep linking için gerekli konfigürasyonlar yapılmalı
+
+## Örnek Optimizasyon
+```typescript
+// Doğru FlatList Kullanımı
+export const ProductList = () => {
+  const renderItem = useCallback(({ item }: { item: Product }) => (
+    <ProductCard product={item} />
+  ), []);
+
+  const keyExtractor = useCallback((item: Product) => item.id, []);
+
+  return (
+    <FlatList
+      data={products}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
+      windowSize={5}
+      removeClippedSubviews
+      ListEmptyComponent={EmptyState}
+      ListFooterComponent={Footer}
+      onEndReachedThreshold={0.5}
+      onEndReached={loadMore}
+    />
+  );
+};
+```
+
+};
+```

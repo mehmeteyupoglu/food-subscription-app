@@ -1,0 +1,49 @@
+---
+description: Güvenlik kuralları ve en iyi uygulamalar
+auto_attachments:
+  - .cursor/rules/security.mdc
+---
+
+# Güvenlik Kuralları
+
+## Hassas Veri Yönetimi
+- Hassas bilgiler env dosyasında tutulmalı
+- API anahtarları client tarafında görünmemeli
+- API anahtarları şifrelenmiş olmalı
+
+## Best Practices
+- Kullanıcı şifreleri hash'lenerek saklanmalı
+- JWT tokenları güvenli şekilde saklanmalı
+- API istekleri için rate limiting uygulanmalı
+- Input validation her zaman yapılmalı
+- XSS ve CSRF önlemleri alınmalı
+- Üçüncü parti kütüphanelerin güvenlik denetimi yapılmalı
+- Debug modda hassas bilgiler loglanmamalı
+- SSL/TLS sertifikaları güncel tutulmalı
+
+## Örnek Güvenlik Uygulamaları
+```typescript
+// Güvenli Token Saklama
+import * as SecureStore from 'expo-secure-store';
+
+export const storeToken = async (token: string) => {
+  try {
+    await SecureStore.setItemAsync('userToken', token);
+  } catch (error) {
+    // error handling
+  }
+};
+
+// Input Validation
+const validateUserInput = (input: string): boolean => {
+  // XSS önleme
+  const sanitizedInput = input.replace(/[<>]/g, '');
+  // SQL injection önleme
+  const hasInvalidChars = /['";]/.test(sanitizedInput);
+  
+  return input === sanitizedInput && !hasInvalidChars;
+};
+```
+
+};
+```

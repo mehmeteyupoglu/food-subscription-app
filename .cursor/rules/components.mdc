@@ -1,0 +1,55 @@
+---
+description: Component Kullanımı Kuralları
+auto_attachments:
+  - app/components
+---
+
+# Component Kullanımı Kuralları
+
+## Component Yapısı ve İsimlendirme
+- Componentler app/components dizininden import edilmeli
+- Component isimleri PascalCase olmalı
+- Props interface componentin üstünde olmalı
+- Styles componentin altında olmalı
+
+## Best Practices
+- Her component tek bir sorumluluk almalı (Single Responsibility)
+- Props için TypeScript interface kullanılmalı
+- Default props yerine optional props tercih edilmeli
+- Büyük componentler küçük parçalara bölünmeli
+- Component prop'ları alfabetik sırada olmalı
+- Memoization gerektiren durumlarda React.memo kullanılmalı
+- Children prop'u açıkça tiplendirilmeli
+
+## Örnek Component Yapısı
+```typescript
+interface ButtonProps {
+  label: string;
+  onPress: () => void;
+  variant?: 'primary' | 'secondary';
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  label,
+  onPress,
+  variant = 'primary',
+}) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles[variant]}>
+      <Text>{label}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  primary: {
+    // styles
+  },
+  secondary: {
+    // styles
+  },
+});
+```
+
+});
+```
