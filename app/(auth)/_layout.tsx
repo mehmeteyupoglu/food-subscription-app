@@ -22,6 +22,11 @@ function AuthLayoutContent() {
           showSkipButton: true,
           showBackButton: false,
         };
+      case "register":
+        return {
+          showSkipButton: false,
+          showBackButton: true,
+        };
       default:
         return {
           showSkipButton: false,
