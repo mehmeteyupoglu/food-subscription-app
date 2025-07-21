@@ -9,6 +9,9 @@ import CountdownButton from "@/components/CountdownButton";
 import CustomButton from "@/components/CustomButton";
 import CustomTextInput from "@/components/CustomTextInput";
 import OTPInput from "@/components/OTPInput";
+import PhoneInput, {
+  validateTurkishPhoneNumber,
+} from "@/components/PhoneInput";
 
 type Step = "phone" | "verification" | "newPassword";
 
@@ -43,8 +46,10 @@ export default function ForgotPassword() {
       return false;
     }
 
-    if (!/^[0-9]{10,11}$/.test(formData.phoneNumber.replace(/[-\s]/g, ""))) {
-      setErrors({ phoneNumber: "Geçerli bir telefon numarası giriniz" });
+    if (!validateTurkishPhoneNumber(formData.phoneNumber)) {
+      setErrors({
+        phoneNumber: "Geçerli bir Türkiye telefon numarası giriniz",
+      });
       return false;
     }
 
@@ -119,12 +124,11 @@ export default function ForgotPassword() {
           subtitle: "Lütfen telefon numaranızı yazın",
           content: (
             <>
-              <CustomTextInput
+              <PhoneInput
                 label="TELEFON NUMARASI"
                 value={formData.phoneNumber}
                 onChangeText={value => handleInputChange("phoneNumber", value)}
-                placeholder="0543-133-58-02"
-                keyboardType="phone-pad"
+                placeholder="505 123 45 67"
                 error={errors.phoneNumber}
               />
               <View style={styles.buttonContainer}>
