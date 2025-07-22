@@ -74,7 +74,13 @@ function AuthLayoutContent() {
         </Animated.View>
       )}
 
-      {config.showSkipButton && <SkipButton onPress={handleSkip} />}
+      {config.showSkipButton && (
+        <Animated.View
+          style={[styles.skipButtonContainer, { opacity: fadeAnim }]}
+        >
+          <SkipButton onPress={handleSkip} />
+        </Animated.View>
+      )}
 
       {/* Stack Navigator */}
       <Stack
@@ -105,6 +111,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 60,
     left: 24,
+    zIndex: 3,
+  },
+  skipButtonContainer: {
+    position: "absolute",
+    top: 60,
+    right: 24,
     zIndex: 3,
   },
 });
