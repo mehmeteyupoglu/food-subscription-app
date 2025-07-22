@@ -151,7 +151,7 @@ export default function PhoneInput({
           value={displayValue}
           onChangeText={handleChangeText}
           keyboardType="phone-pad"
-          maxLength={12} // 505 123 45 67 formatı için
+          maxLength={13} // 505 123 45 67 formatı için
           {...props}
         />
       </View>
