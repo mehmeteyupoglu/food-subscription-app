@@ -10,26 +10,18 @@ interface SkipButtonProps {
 
 export default function SkipButton({ onPress }: SkipButtonProps) {
   return (
-    <View style={styles.skipContainer}>
-      <TouchableOpacity style={styles.skipButton} onPress={onPress}>
-        <View style={styles.skipContent}>
-          <Text style={styles.skipText}>Atla</Text>
-          <View style={styles.skipCircle}>
-            <Ionicons name="chevron-forward" size={16} color={colors.primary} />
-          </View>
+    <TouchableOpacity style={styles.skipButton} onPress={onPress}>
+      <View style={styles.skipContent}>
+        <Text style={styles.skipText}>Atla</Text>
+        <View style={styles.skipCircle}>
+          <Ionicons name="chevron-forward" size={16} color={colors.primary} />
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  skipContainer: {
-    position: "absolute",
-    top: 60,
-    right: 24,
-    zIndex: 3,
-  },
   skipButton: {
     padding: 8,
   },
