@@ -7,6 +7,9 @@ import AuthPageContainer from "@/(auth)/components/AuthPageContainer";
 import colors from "@/colors";
 import CustomButton from "@/components/CustomButton";
 import CustomTextInput from "@/components/CustomTextInput";
+import PhoneInput, {
+  validateTurkishPhoneNumber,
+} from "@/components/PhoneInput";
 
 interface FormData {
   phoneNumber: string;
@@ -34,10 +37,8 @@ export default function Login() {
 
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = "Telefon numarası zorunludur";
-    } else if (
-      !/^[0-9]{10,11}$/.test(formData.phoneNumber.replace(/[-\s]/g, ""))
-    ) {
-      newErrors.phoneNumber = "Geçerli bir telefon numarası giriniz";
+    } else if (!validateTurkishPhoneNumber(formData.phoneNumber)) {
+      newErrors.phoneNumber = "Geçerli bir Türkiye telefon numarası giriniz";
     }
 
     if (!formData.password) {
@@ -63,12 +64,11 @@ export default function Login() {
       title="Giriş Yap"
       subtitle="Lütfen mevcut hesabınıza giriş yapın"
     >
-      <CustomTextInput
+      <PhoneInput
         label="TELEFON NUMARANIZ"
         value={formData.phoneNumber}
         onChangeText={value => handleInputChange("phoneNumber", value)}
-        placeholder="0543-133-58-02"
-        keyboardType="phone-pad"
+        placeholder="505 123 45 67"
         error={errors.phoneNumber}
       />
 
