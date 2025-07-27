@@ -3,17 +3,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 
 import colors from "@/colors";
 import PlanCard from "@/components/home/PlanCard";
-import ToggleButton from "@/components/home/ToggleButton";
+import ImageSlider from "@/components/ImageSlider";
 
 export default function Home() {
   const [selectedMealCount, setSelectedMealCount] = useState("2 öğün");
@@ -40,42 +37,37 @@ export default function Home() {
     console.log("Plan eklendi:", planType);
   };
 
+  const sliderImages = [
+    "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+  ];
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Hero Section with Image */}
         <View style={styles.heroSection}>
-          <View style={styles.imageContainer}>
-            <Image
-              source="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-              style={styles.heroImage}
-              contentFit="cover"
-              transition={300}
-            />
-            <LinearGradient
-              colors={["transparent", "rgba(0,0,0,0.3)"]}
-              style={styles.imageOverlay}
-            />
-          </View>
+          <ImageSlider images={sliderImages} height={200} />
 
-          <View style={styles.heroContent}>
-            <View style={styles.badgeContainer}>
+          {/* <View style={styles.heroContent}> */}
+          {/* <View style={styles.badgeContainer}>
               <MaterialIcons
                 name="restaurant"
                 size={16}
                 color={colors.primary}
               />
               <Text style={styles.badgeText}>Sağlıklı & Lezzetli</Text>
-            </View>
+            </View> */}
 
-            <Text style={styles.heroTitle}>
+          {/* <Text style={styles.heroTitle}>
               Ev Yapımı Yemekler{"\n"}Kapınızda
-            </Text>
-            <Text style={styles.heroSubtitle}>
+            </Text> */}
+          {/* <Text style={styles.heroSubtitle}>
               Özenle hazırlanmış menüler, geleneksel tatlar ve sıcacık ev
               lezzetleri ile sofranızı şenlendirin
-            </Text>
-          </View>
+            </Text> */}
+          {/* </View> */}
         </View>
 
         {/* Features Section */}
@@ -101,17 +93,17 @@ export default function Home() {
         </View> */}
 
         {/* Subscription Configuration */}
-        <View style={styles.configSection}>
-          <View style={styles.sectionHeader}>
+        {/* <View style={styles.configSection}> */}
+        {/* <View style={styles.sectionHeader}>
             <MaterialIcons name="tune" size={24} color={colors.primary} />
             <Text style={styles.sectionTitle}>Abonelik Planını Oluştur</Text>
           </View>
           <Text style={styles.sectionSubtitle}>
             İhtiyaçlarınıza göre özelleştirin
-          </Text>
+          </Text> */}
 
-          {/* Meal Count Selection */}
-          <View style={styles.selectionGroup}>
+        {/* Meal Count Selection */}
+        {/* <View style={styles.selectionGroup}>
             <Text style={styles.selectionLabel}>Günlük Öğün Sayısı</Text>
             <View style={styles.toggleContainer}>
               {mealCountOptions.map(option => (
@@ -123,10 +115,10 @@ export default function Home() {
                 />
               ))}
             </View>
-          </View>
+          </View> */}
 
-          {/* Meal Type Selection */}
-          {/* <View style={styles.selectionGroup}>
+        {/* Meal Type Selection */}
+        {/* <View style={styles.selectionGroup}>
             <Text style={styles.selectionLabel}>Öğün Türleri</Text>
             <View style={styles.toggleContainer}>
               {mealTypeOptions.map(option => (
@@ -139,7 +131,7 @@ export default function Home() {
               ))}
             </View>
           </View> */}
-        </View>
+        {/* </View> */}
 
         {/* Plans Section */}
         <View style={styles.plansSection}>
@@ -157,21 +149,23 @@ export default function Home() {
 
           <View style={styles.planCards}>
             <PlanCard
-              title="Haftalık Paket (5 Gün)"
-              price="601 ₺ (Günlük)"
-              onAddPress={() => handlePlanAdd("5-gun")}
+              title="Aylık"
+              subTitle="Sağlıklı Ev Yemekleri"
+              duration="20 Gün"
+              onPress={() => handlePlanAdd("20-gun")}
             />
 
             <PlanCard
-              title="Aylık Paket (20 Gün)"
-              price="594 ₺ (Günlük)"
-              onAddPress={() => handlePlanAdd("20-gun")}
+              title="Haftalık"
+              subTitle="Sağlıklı Ev Yemekleri"
+              duration="5 Gün"
+              onPress={() => handlePlanAdd("5-gun")}
             />
           </View>
         </View>
 
         {/* Pickup Discount Option */}
-        <View style={styles.discountSection}>
+        {/* <View style={styles.discountSection}>
           <TouchableOpacity
             style={[
               styles.discountCard,
@@ -215,10 +209,10 @@ export default function Home() {
               )}
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         {/* Call to Action */}
-        <View style={styles.ctaSection}>
+        {/* <View style={styles.ctaSection}>
           <TouchableOpacity style={styles.ctaButton} activeOpacity={0.9}>
             <LinearGradient
               colors={[colors.primary, "#FF8A2B"]}
@@ -238,7 +232,7 @@ export default function Home() {
           <Text style={styles.ctaSubtext}>
             İstediğiniz zaman iptal edebilirsiniz
           </Text>
-        </View>
+        </View> */}
 
         <View style={styles.bottomSpacing} />
       </ScrollView>

@@ -29,8 +29,8 @@ export default function AppHeader({
           </TouchableOpacity>
         )}
         <View style={styles.titleContainer}>
-          <Text style={styles.brandTitle}>SUBE</Text>
-          <Text style={styles.restaurantName}>BITTAT cafe & Restaurant</Text>
+          <Text style={styles.brandTitle}>ŞUBE</Text>
+          <Text style={styles.restaurantName}>Bitat Cafe & Restaurant</Text>
         </View>
       </View>
 
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
   cartButton: {
     backgroundColor: colors.secondary,
     padding: 10,
-    borderRadius: 8,
+    borderRadius: 22,
   },
 });
