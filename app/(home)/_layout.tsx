@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 import { Tabs, useRouter } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import colors from "@/colors";
 import AppHeader from "@/components/home/AppHeader";
+import { Image } from "react-native";
 
 export default function TabsLayout() {
   const router = useRouter();
@@ -40,7 +40,11 @@ export default function TabsLayout() {
             options={{
               title: "Ana Sayfa",
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="home" size={size} color={color} />
+                <Image
+                  source={require("../../assets/icons/home.png")}
+                  style={{ width: size * 0.7, height: size * 0.7, tintColor: color }}
+                  resizeMode="contain"
+                />
               ),
             }}
           />
@@ -49,10 +53,10 @@ export default function TabsLayout() {
             options={{
               title: "Menü",
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons
-                  name="restaurant-menu"
-                  size={size}
-                  color={color}
+                <Image
+                  source={require("../../assets/icons/menu.png")}
+                  style={{ width: size * 0.7, height: size * 0.7, tintColor: color }}
+                  resizeMode="contain"
                 />
               ),
             }}
@@ -62,7 +66,11 @@ export default function TabsLayout() {
             options={{
               title: "Profil",
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="person" size={size} color={color} />
+                <Image
+                  source={require("../../assets/icons/profile.png")}
+                  style={{ width: size * 0.7, height: size * 0.7, tintColor: color }}
+                  resizeMode="contain"
+                />
               ),
             }}
           />

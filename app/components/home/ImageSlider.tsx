@@ -1,5 +1,4 @@
 import { Image } from 'expo-image';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 
@@ -57,10 +56,6 @@ export default function ImageSlider({
         source={item}
         style={styles.image}
         contentFit="cover"
-      />
-      <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.3)"]}
-        style={styles.overlay}
       />
     </View>
   );

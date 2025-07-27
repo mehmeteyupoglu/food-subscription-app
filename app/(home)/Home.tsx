@@ -6,11 +6,11 @@ import {
   View
 } from "react-native";
 
-import { MaterialIcons } from "@expo/vector-icons";
 
 import colors from "@/colors";
+import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
-import ImageSlider from "@/components/ImageSlider";
+
 
 export default function Home() {
   const [selectedMealCount, setSelectedMealCount] = useState("2 öğün");
@@ -136,19 +136,17 @@ export default function Home() {
         {/* Plans Section */}
         <View style={styles.plansSection}>
           <View style={styles.sectionHeader}>
-            <MaterialIcons
+            {/* <MaterialIcons
               name="card-giftcard"
               size={24}
               color={colors.primary}
-            />
-            <Text style={styles.sectionTitle}>Abonelik Paketleri</Text>
+            /> */}
+            <Text style={styles.sectionTitle}>Abonelik Seçin</Text>
           </View>
-          <Text style={styles.sectionSubtitle}>
-            Size uygun paketi seçin, tasarruf edin
-          </Text>
 
           <View style={styles.planCards}>
             <PlanCard
+              imageSource={require("../../assets/manti.png")}
               title="Aylık"
               subTitle="Sağlıklı Ev Yemekleri"
               duration="20 Gün"
@@ -156,6 +154,7 @@ export default function Home() {
             />
 
             <PlanCard
+              imageSource={require("../../assets/ciborek.png")}
               title="Haftalık"
               subTitle="Sağlıklı Ev Yemekleri"
               duration="5 Gün"
@@ -355,9 +354,9 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "700",
     color: colors.text,
-    marginLeft: 8,
+    fontFamily: "Sen_400Regular",
+    // marginLeft: 8,
   },
   sectionSubtitle: {
     fontSize: 14,

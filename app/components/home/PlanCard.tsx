@@ -2,6 +2,7 @@ import React from "react";
 import type { ImageSourcePropType } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 
+import { Sen_400Regular, Sen_700Bold, useFonts } from '@expo-google-fonts/sen';
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 
@@ -22,6 +23,15 @@ export default function PlanCard({
   imageSource,
   onPress,
 }: PlanCardProps) {
+  const [fontsLoaded] = useFonts({
+    Sen_400Regular,
+    Sen_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
@@ -56,7 +66,7 @@ export default function PlanCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.gray,
+    backgroundColor: "#F6F8FA",
     borderRadius: 16,
     marginVertical: 6,
     shadowColor: "#000",
@@ -94,17 +104,18 @@ const styles = StyleSheet.create({
   },
   planTitle: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Sen_700Bold",
     color: colors.text,
     marginBottom: 4,
   },
   planSubtitle: {
     fontSize: 14,
+    fontFamily: "Sen_400Regular",
     color: colors.textSecondary,
   },
   duration: {
     fontSize: 16,
-    fontWeight: "400",
+    fontFamily: "Sen_400Regular",
     color: colors.text,
   },
 });

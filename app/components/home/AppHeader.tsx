@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -25,7 +25,7 @@ export default function AppHeader({
             onPress={onMenuPress}
             activeOpacity={0.7}
           >
-            <MaterialIcons name="menu" size={24} color={colors.text} />
+            <MaterialIcons name="location-on" size={24} color={colors.text} />
           </TouchableOpacity>
         )}
         <View style={styles.titleContainer}>
@@ -39,11 +39,7 @@ export default function AppHeader({
         activeOpacity={0.7}
         onPress={onCartPress}
       >
-        <MaterialIcons
-          name="shopping-cart"
-          size={24}
-          color={colors.background}
-        />
+        <Image source={require("../../../assets/icons/cart.png")} style={{ width: 18, height: 20, tintColor: colors.background }} />
       </TouchableOpacity>
     </View>
   );
@@ -51,14 +47,12 @@ export default function AppHeader({
 
 const styles = StyleSheet.create({
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     backgroundColor: colors.background,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
   },
   leftSection: {
     flexDirection: "row",
@@ -66,7 +60,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   menuButton: {
-    padding: 8,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#F6F8FA',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 12,
   },
   titleContainer: {
@@ -84,8 +83,12 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   cartButton: {
+    width: 45,
+    height: 45,
     backgroundColor: colors.secondary,
     padding: 10,
     borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
