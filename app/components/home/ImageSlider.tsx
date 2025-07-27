@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -15,10 +15,9 @@ interface ImageSliderProps {
 export default function ImageSlider({
   images,
   height = 200,
-  autoPlayInterval = 3000,
+  autoPlayInterval = 5000,
   padding = 20
 }: ImageSliderProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const currentIndexRef = useRef(0);
   const flatListRef = useRef<FlatList>(null);
 
@@ -28,25 +27,22 @@ export default function ImageSlider({
   useEffect(() => {
     const interval = setInterval(() => {
       const newIndex = (currentIndexRef.current + 1) % 3;
-      setCurrentIndex(newIndex);
       currentIndexRef.current = newIndex;
+      console.log("New index:", newIndex);
 
+      if (flatListRef.current) {
+        flatListRef.current.scrollToIndex({ index: newIndex, animated: true });
+      }
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [images.length, autoPlayInterval]);
+  }, [autoPlayInterval]);
 
-  useEffect(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToIndex({ index: currentIndex, animated: true });
-    }
-  }, [currentIndex]);
-
-  const getItemLayout = (data: any, index: number) => ({
-    length: slideWidth,
-    offset: (slideWidth + actualSlideSpacing) * index,
-    index,
-  });
+  // const getItemLayout = (data: any, index: number) => ({
+  //   length: slideWidth,
+  //   offset: (slideWidth + actualSlideSpacing) * index,
+  //   index,
+  // });
 
   const slideWidth = width - padding * 2;
 
@@ -64,7 +60,7 @@ export default function ImageSlider({
 
   const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
     if (viewableItems.length > 0) {
-      setCurrentIndex(viewableItems[0].index);
+      currentIndexRef.current = viewableItems[0].index;
     }
   }).current;
 
@@ -83,7 +79,7 @@ export default function ImageSlider({
         viewabilityConfig={{
           itemVisiblePercentThreshold: 50,
         }}
-        getItemLayout={getItemLayout}
+        // getItemLayout={getItemLayout}
         style={styles.flatList}
         contentContainerStyle={styles.flatListContent}
       />
