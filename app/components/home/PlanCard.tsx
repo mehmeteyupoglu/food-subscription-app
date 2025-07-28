@@ -1,6 +1,6 @@
 import React from "react";
 import type { ImageSourcePropType } from "react-native";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Sen_400Regular, Sen_700Bold, useFonts } from '@expo-google-fonts/sen';
 import { MaterialIcons } from "@expo/vector-icons";
@@ -33,7 +33,7 @@ export default function PlanCard({
   }
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
       <View style={styles.cardContent}>
         <View style={styles.imageContainer}>
           {imageSource ? (
@@ -60,7 +60,7 @@ export default function PlanCard({
 
         <Text style={styles.duration}>{duration}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
