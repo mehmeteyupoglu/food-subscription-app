@@ -21,7 +21,7 @@ export default function Home() {
 
   const [selectedMealType, setSelectedMealType] = useState("2 öğün");
   const [personCount, setPersonCount] = useState('1');
-  const [deliveryMethod, setDeliveryMethod] = useState('Paket Servis (6% İndirimli)');
+  const [deliveryMethod, setDeliveryMethod] = useState('paket_servis');
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -31,6 +31,10 @@ export default function Home() {
 
   const handleMealTypeSelect = (mealType: string) => {
     setSelectedMealType(mealType);
+  };
+
+  const handleDeliveryMethodChange = (method: string) => {
+    setDeliveryMethod(method);
   };
 
   const handlePlanAdd = (planType: string) => {
@@ -93,6 +97,7 @@ export default function Home() {
         deliveryMethod={deliveryMethod}
         onMealTypeSelect={handleMealTypeSelect}
         onPersonCountChange={setPersonCount}
+        onDeliveryMethodChange={handleDeliveryMethodChange}
         onContinue={handleContinueToCart}
       />
     </View>

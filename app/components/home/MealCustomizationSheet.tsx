@@ -1,5 +1,4 @@
 import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
-import { MaterialIcons } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
 import React from 'react';
 import {
@@ -11,6 +10,7 @@ import {
 } from 'react-native';
 
 import colors from '@/colors';
+import Dropdown from '@/components/ui/Dropdown';
 import ToggleButton from './ToggleButton';
 
 interface MealCustomizationSheetProps {
@@ -20,8 +20,20 @@ interface MealCustomizationSheetProps {
   deliveryMethod: string;
   onMealTypeSelect: (mealType: string) => void;
   onPersonCountChange: (count: string) => void;
+  onDeliveryMethodChange: (method: string) => void;
   onContinue: () => void;
 }
+
+const deliveryOptions = [
+  {
+    label: 'Paket Servis (6% İndirimli)',
+    value: 'paket_servis',
+  },
+  {
+    label: 'Restoranda Yemek',
+    value: 'restoranda_yemek',
+  },
+];
 
 export default function MealCustomizationSheet({
   bottomSheetRef,
@@ -30,6 +42,7 @@ export default function MealCustomizationSheet({
   deliveryMethod,
   onMealTypeSelect,
   onPersonCountChange,
+  onDeliveryMethodChange,
   onContinue,
 }: MealCustomizationSheetProps) {
   const [fontsLoaded] = useFonts({
@@ -102,12 +115,12 @@ export default function MealCustomizationSheet({
             <Text style={[styles.sheetSectionTitle, { fontFamily: 'Sen_400Regular' }]}>
               YEMEK TESLİM ŞEKLİ
             </Text>
-            <TouchableOpacity style={styles.dropdown}>
-              <Text style={[styles.dropdownText, { fontFamily: 'Sen_400Regular' }]}>
-                {deliveryMethod}
-              </Text>
-              <MaterialIcons name="keyboard-arrow-down" size={20} color={colors.text} />
-            </TouchableOpacity>
+            <Dropdown
+              value={deliveryMethod}
+              options={deliveryOptions}
+              onValueChange={onDeliveryMethodChange}
+              placeholder="Teslim şekli seçin"
+            />
           </View>
         </ScrollView>
 
