@@ -37,9 +37,9 @@ export default function ToggleButton({
 
 const styles = StyleSheet.create({
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 24,
     marginHorizontal: 4,
     borderWidth: 1,
   },
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   buttonText: {
-    fontSize: 14,
-    fontWeight: "500",
+    fontSize: 16,
+    fontFamily: "Sen_400Regular",
     textAlign: "center",
   },
   selectedText: {
