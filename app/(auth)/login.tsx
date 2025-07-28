@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 import AuthPageContainer from "@/(auth)/components/AuthPageContainer";
 import colors from "@/colors";
-import CustomButton from "@/components/CustomButton";
-import CustomTextInput from "@/components/CustomTextInput";
+import CustomButton from "@/components/ui/inputs/CustomButton";
+import CustomTextInput from "@/components/ui/inputs/CustomTextInput";
 import PhoneInput, {
   validateTurkishPhoneNumber,
-} from "@/components/PhoneInput";
+} from "@/components/ui/inputs/PhoneInput";
 
 interface FormData {
   phoneNumber: string;
@@ -17,6 +17,8 @@ interface FormData {
 }
 
 export default function Login() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState<FormData>({
     phoneNumber: "",
     password: "",
@@ -53,59 +55,62 @@ export default function Login() {
 
   const handleLogin = () => {
     if (validateForm()) {
-      // TODO: Implement login logic
+      // TODO: Implement actual login logic with API
       console.log("Login data:", formData);
-      // Navigate to main app or show success message
+      // Navigate to home page after successful login
+      router.replace("/(home)/Home");
     }
   };
 
   return (
-    <AuthPageContainer
-      title="Giriş Yap"
-      subtitle="Lütfen mevcut hesabınıza giriş yapın"
-    >
-      <PhoneInput
-        label="TELEFON NUMARANIZ"
-        value={formData.phoneNumber}
-        onChangeText={value => handleInputChange("phoneNumber", value)}
-        placeholder="505 123 45 67"
-        error={errors.phoneNumber}
-      />
-
-      <CustomTextInput
-        label="ŞİFRE"
-        value={formData.password}
-        onChangeText={value => handleInputChange("password", value)}
-        placeholder="••••••••••"
-        secureTextEntry
-        error={errors.password}
-      />
-
-      <View style={styles.forgotPasswordContainer}>
-        <Link href="/forgot-password" asChild>
-          <TouchableOpacity>
-            <Text style={styles.forgotPasswordText}>Şifremi Unuttum</Text>
-          </TouchableOpacity>
-        </Link>
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <CustomButton
-          title="GİRİŞ YAP"
-          onPress={handleLogin}
-          variant="primary"
+    <>
+      <AuthPageContainer
+        title="Giriş Yap"
+        subtitle="Lütfen mevcut hesabınıza giriş yapın"
+      >
+        <PhoneInput
+          label="TELEFON NUMARANIZ"
+          value={formData.phoneNumber}
+          onChangeText={value => handleInputChange("phoneNumber", value)}
+          placeholder="505 123 45 67"
+          error={errors.phoneNumber}
         />
-      </View>
 
-      <View style={styles.registerContainer}>
-        <Text style={styles.registerText}>Hesabınız yok mu? </Text>
-        <Link href="/register" asChild>
-          <TouchableOpacity>
-            <Text style={styles.registerLink}>KAYDOL</Text>
-          </TouchableOpacity>
-        </Link>
-      </View>
-    </AuthPageContainer>
+        <CustomTextInput
+          label="ŞİFRE"
+          value={formData.password}
+          onChangeText={value => handleInputChange("password", value)}
+          placeholder="••••••••••"
+          secureTextEntry
+          error={errors.password}
+        />
+
+        <View style={styles.forgotPasswordContainer}>
+          <Link href="/forgot-password" asChild>
+            <TouchableOpacity>
+              <Text style={styles.forgotPasswordText}>Şifremi Unuttum</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            title="GİRİŞ YAP"
+            onPress={handleLogin}
+            variant="primary"
+          />
+        </View>
+
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerText}>Hesabınız yok mu? </Text>
+          <Link href="/register" asChild>
+            <TouchableOpacity>
+              <Text style={styles.registerLink}>KAYDOL</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
+      </AuthPageContainer>
+    </>
   );
 }
 
