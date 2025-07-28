@@ -28,7 +28,6 @@ export default function ImageSlider({
     const interval = setInterval(() => {
       const newIndex = (currentIndexRef.current + 1) % 3;
       currentIndexRef.current = newIndex;
-      console.log("New index:", newIndex);
 
       if (flatListRef.current) {
         flatListRef.current.scrollToIndex({ index: newIndex, animated: true });

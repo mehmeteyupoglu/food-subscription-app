@@ -30,7 +30,7 @@ interface MealCustomizationSheetProps {
 
 const deliveryOptions = [
   {
-    label: 'Paket Servis (6% İndirimli)',
+    label: 'Gel Al (6% İndirimli)',
     value: 'paket_servis',
   },
   {
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 20,
-    paddingHorizontal: 4,
+    // paddingHorizontal: 4,
   },
   sheetSectionTitle: {
     fontSize: 13,
