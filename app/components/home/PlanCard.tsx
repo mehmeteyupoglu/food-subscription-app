@@ -69,14 +69,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F8FA",
     borderRadius: 16,
     marginVertical: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
+    // elevation: 2,
   },
   cardContent: {
     flexDirection: "row",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   foodImage: {
     width: 60,
-    height: 60,
+    height: 56,
     borderRadius: 8,
   },
   placeholderImage: {

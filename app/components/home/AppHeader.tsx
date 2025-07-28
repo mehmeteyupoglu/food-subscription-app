@@ -30,7 +30,10 @@ export default function AppHeader({
         )}
         <View style={styles.titleContainer}>
           <Text style={styles.brandTitle}>ŞUBE</Text>
-          <Text style={styles.restaurantName}>Bitat Cafe & Restaurant</Text>
+          <View style={styles.restaurantRow}>
+            <Text style={styles.restaurantName}>Bitat Cafe & Restaurant</Text>
+            <MaterialIcons name="keyboard-arrow-down" size={16} color={colors.textSecondary} />
+          </View>
         </View>
       </View>
 
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingVertical: 21,
     backgroundColor: colors.background,
   },
   leftSection: {
@@ -60,9 +63,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   menuButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 45,
+    height: 45,
+    borderRadius: 22,
     backgroundColor: '#F6F8FA',
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,20 +75,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   brandTitle: {
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: 12,
+    fontFamily: "Sen_700Bold",
     color: colors.primary,
     letterSpacing: 0.5,
   },
   restaurantName: {
-    fontSize: 12,
+    fontSize: 14,
+    fontFamily: "Sen_400Regular",
     color: colors.textSecondary,
+    marginTop: 2,
+  },
+  restaurantRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 2,
   },
   cartButton: {
     width: 45,
     height: 45,
-    backgroundColor: colors.secondary,
+    backgroundColor: "#181C2E",
     padding: 10,
     borderRadius: 22,
     alignItems: 'center',

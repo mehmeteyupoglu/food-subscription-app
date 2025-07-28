@@ -1,4 +1,5 @@
 import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
+import { MaterialIcons } from '@expo/vector-icons';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetTextInput, BottomSheetView } from '@gorhom/bottom-sheet';
 import React from 'react';
 import {
@@ -18,6 +19,7 @@ interface MealCustomizationSheetProps {
   selectedMealType: string;
   personCount: string;
   deliveryMethod: string;
+  selectedPlan: string;
   totalPrice: number;
   totalMeals: number;
   onMealTypeSelect: (mealType: string) => void;
@@ -42,6 +44,7 @@ export default function MealCustomizationSheet({
   selectedMealType,
   personCount,
   deliveryMethod,
+  selectedPlan,
   totalPrice,
   totalMeals,
   onMealTypeSelect,
@@ -60,6 +63,16 @@ export default function MealCustomizationSheet({
     []
   );
 
+  // Plan bilgisini formatla
+  const getPlanDisplayText = () => {
+    if (!selectedPlan) return "Plan Seçiniz";
+
+    const planName = selectedPlan === "aylik" ? "Aylık Plan" : "Haftalık Plan";
+    const days = selectedPlan === "aylik" ? "20 Gün" : "5 Gün";
+
+    return `${planName} - ${days}`;
+  };
+
   if (!fontsLoaded) {
     return null;
   }
@@ -73,11 +86,19 @@ export default function MealCustomizationSheet({
       index={-1}
     >
       <BottomSheetView style={styles.sheetContent}>
-        <Text style={[styles.title, { fontFamily: 'Sen_400Regular' }]}>
-          Yemek Planınızı Özelleştirin
-        </Text>
-
         <ScrollView style={styles.sheetScrollView} showsVerticalScrollIndicator={false}>
+          <View style={styles.section}>
+            <Text style={[styles.sheetSectionTitle, { fontFamily: 'Sen_400Regular' }]}>
+              SEÇİLEN PLAN
+            </Text>
+            <View style={styles.dropdown}>
+              <Text style={[styles.dropdownText, { fontFamily: 'Sen_400Regular' }]}>
+                {getPlanDisplayText()}
+              </Text>
+              <MaterialIcons name="keyboard-arrow-down" size={20} color={colors.textSecondary} />
+            </View>
+          </View>
+
           <View style={styles.section}>
             <Text style={[styles.sheetSectionTitle, { fontFamily: 'Sen_400Regular' }]}>
               ÖĞÜN TERCİHİ
@@ -205,7 +226,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   dropdownText: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.textSecondary,
   },
   bottomSection: {

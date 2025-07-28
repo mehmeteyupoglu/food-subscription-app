@@ -109,9 +109,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <View style={styles.heroSection}>
-          <ImageSlider images={sliderImages} height={200} />
-        </View>
+        <ImageSlider images={sliderImages} height={200} />
 
         <View style={styles.subscriptionSection}>
           <Text style={styles.sectionTitle}>Abonelik Seçin</Text>
@@ -143,6 +141,7 @@ export default function Home() {
         selectedMealType={selectedMealType}
         personCount={personCount}
         deliveryMethod={deliveryMethod}
+        selectedPlan={selectedPlan}
         totalPrice={totalPrice}
         totalMeals={totalMeals}
         onMealTypeSelect={handleMealTypeSelect}
@@ -162,20 +161,18 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  heroSection: {
-    marginBottom: 32,
-  },
   subscriptionSection: {
     paddingHorizontal: 20,
-    marginBottom: 32,
+    // marginBottom: 32,
   },
   sectionTitle: {
     fontSize: 20,
+    marginBottom: 8,
     color: colors.text,
     fontFamily: "Sen_400Regular",
   },
   planCards: {
-    gap: 16,
+    gap: 8,
   },
   bottomSpacing: {
     height: 32,
