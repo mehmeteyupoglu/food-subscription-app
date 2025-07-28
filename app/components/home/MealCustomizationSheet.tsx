@@ -18,6 +18,8 @@ interface MealCustomizationSheetProps {
   selectedMealType: string;
   personCount: string;
   deliveryMethod: string;
+  totalPrice: number;
+  totalMeals: number;
   onMealTypeSelect: (mealType: string) => void;
   onPersonCountChange: (count: string) => void;
   onDeliveryMethodChange: (method: string) => void;
@@ -40,6 +42,8 @@ export default function MealCustomizationSheet({
   selectedMealType,
   personCount,
   deliveryMethod,
+  totalPrice,
+  totalMeals,
   onMealTypeSelect,
   onPersonCountChange,
   onDeliveryMethodChange,
@@ -130,9 +134,17 @@ export default function MealCustomizationSheet({
               PAKET TUTARI
             </Text>
             <Text style={[styles.priceValue, { fontFamily: 'Sen_400Regular' }]}>
-              1,410 ₺
+              {totalPrice > 0 ? `${totalPrice.toLocaleString('tr-TR')} ₺` : '0 ₺'}
             </Text>
           </View>
+
+          {totalMeals > 0 && (
+            <View style={styles.mealsInfo}>
+              <Text style={[styles.mealsText, { fontFamily: 'Sen_400Regular' }]}>
+                Toplam {totalMeals} öğün
+              </Text>
+            </View>
+          )}
 
           <TouchableOpacity style={styles.continueButton} onPress={onContinue}>
             <Text style={[styles.continueButtonText, { fontFamily: 'Sen_400Regular' }]}>
@@ -229,5 +241,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.background,
     letterSpacing: 1,
+  },
+  mealsInfo: {
+    marginBottom: 16,
+  },
+  mealsText: {
+    fontSize: 14,
+    color: colors.textSecondary,
   },
 }); 

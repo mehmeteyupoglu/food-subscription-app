@@ -1,6 +1,6 @@
 import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
 import BottomSheet from "@gorhom/bottom-sheet";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -22,8 +22,55 @@ export default function Home() {
   const [selectedMealType, setSelectedMealType] = useState("2 öğün");
   const [personCount, setPersonCount] = useState('1');
   const [deliveryMethod, setDeliveryMethod] = useState('paket_servis');
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalMeals, setTotalMeals] = useState<number>(0);
 
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // Base meal price
+  const mealPrice = 310;
+
+  // Price calculation effect
+  useEffect(() => {
+    if (!selectedPlan || !personCount) return;
+
+    const people = parseInt(personCount) || 1;
+    const days = selectedPlan === "aylik" ? 20 : 5; // Aylık: 20 gün, Haftalık: 5 gün
+
+    // People discount calculation
+    let peopleDiscount = 0;
+    if (people > 1 && people <= 5) {
+      peopleDiscount = people; // 1% per person for up to 5 people
+    } else if (people > 5) {
+      peopleDiscount = 4 + Math.floor(Math.min(people, 20) / 5); // Capped at 20 people
+    }
+
+    // Subscription discount calculation
+    let subscriptionDiscount = 0;
+    if (selectedPlan === "haftalik") {
+      subscriptionDiscount = 3;
+    } else if (selectedPlan === "aylik") {
+      subscriptionDiscount = 4;
+    }
+
+    // Delivery method discount
+    const takeawayDiscount = deliveryMethod === 'paket_servis' ? 6 : 0;
+
+    // Total discount percentage
+    const totalDiscount = peopleDiscount + subscriptionDiscount + takeawayDiscount;
+
+    // Determine meals per day based on selected meal option
+    const mealsPerDay = selectedMealType === "2 öğün" ? 2 : 1;
+    const mealsTotal = people * mealsPerDay * days;
+
+    // Apply discount to calculate the discounted meal price
+    const discountedMealPrice = Math.round(mealPrice * (1 - totalDiscount / 100) * 10) / 10;
+
+    // Calculate overall totals
+    setTotalMeals(mealsTotal);
+    setTotalPrice(Math.round(discountedMealPrice * mealsTotal * 10) / 10);
+  }, [selectedMealType, personCount, deliveryMethod, selectedPlan]);
 
   const handleSheetOpen = () => {
     bottomSheetRef.current?.expand();
@@ -39,6 +86,7 @@ export default function Home() {
 
   const handlePlanAdd = (planType: string) => {
     console.log("Plan eklendi:", planType);
+    setSelectedPlan(planType);
     handleSheetOpen();
   };
 
@@ -95,6 +143,8 @@ export default function Home() {
         selectedMealType={selectedMealType}
         personCount={personCount}
         deliveryMethod={deliveryMethod}
+        totalPrice={totalPrice}
+        totalMeals={totalMeals}
         onMealTypeSelect={handleMealTypeSelect}
         onPersonCountChange={setPersonCount}
         onDeliveryMethodChange={handleDeliveryMethodChange}
