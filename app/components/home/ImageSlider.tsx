@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     position: 'relative',
-    paddingTop: 20,
   },
   flatList: {
     flex: 1,
