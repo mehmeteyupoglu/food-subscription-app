@@ -1,6 +1,5 @@
 import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
-import BottomSheet from "@gorhom/bottom-sheet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -10,23 +9,31 @@ import {
 
 import colors from "@/colors";
 import ImageSlider from "@/components/home/ImageSlider";
-import MealCustomizationSheet from "@/components/home/MealCustomizationSheet";
 import PlanCard from "@/components/home/PlanCard";
 import { router } from 'expo-router';
+import { useBottomSheet } from '../../lib/BottomSheetContext';
 
 export default function Home() {
   const [fontsLoaded] = useFonts({
     Sen_400Regular,
   });
 
-  const [selectedMealType, setSelectedMealType] = useState("2 öğün");
-  const [personCount, setPersonCount] = useState('1');
-  const [deliveryMethod, setDeliveryMethod] = useState('paket_servis');
-  const [selectedPlan, setSelectedPlan] = useState<string>("");
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [totalMeals, setTotalMeals] = useState<number>(0);
-
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  const {
+    selectedMealType,
+    personCount,
+    deliveryMethod,
+    selectedPlan,
+    totalPrice,
+    totalMeals,
+    setSelectedMealType,
+    setPersonCount,
+    setDeliveryMethod,
+    setSelectedPlan,
+    setTotalPrice,
+    setTotalMeals,
+    openSheet,
+    closeSheet
+  } = useBottomSheet();
 
   // Base meal price
   const mealPrice = 310;
@@ -72,10 +79,6 @@ export default function Home() {
     setTotalPrice(Math.round(discountedMealPrice * mealsTotal * 10) / 10);
   }, [selectedMealType, personCount, deliveryMethod, selectedPlan]);
 
-  const handleSheetOpen = () => {
-    bottomSheetRef.current?.expand();
-  };
-
   const handleMealTypeSelect = (mealType: string) => {
     setSelectedMealType(mealType);
   };
@@ -87,12 +90,12 @@ export default function Home() {
   const handlePlanAdd = (planType: string) => {
     console.log("Plan eklendi:", planType);
     setSelectedPlan(planType);
-    handleSheetOpen();
+    openSheet();
   };
 
   const handleContinueToCart = () => {
     console.log("Sepete devam et");
-    bottomSheetRef.current?.close();
+    closeSheet();
     router.push('/views/ShoppingCart');
   };
 
@@ -135,20 +138,6 @@ export default function Home() {
 
         <View style={styles.bottomSpacing} />
       </ScrollView>
-
-      <MealCustomizationSheet
-        bottomSheetRef={bottomSheetRef}
-        selectedMealType={selectedMealType}
-        personCount={personCount}
-        deliveryMethod={deliveryMethod}
-        selectedPlan={selectedPlan}
-        totalPrice={totalPrice}
-        totalMeals={totalMeals}
-        onMealTypeSelect={handleMealTypeSelect}
-        onPersonCountChange={setPersonCount}
-        onDeliveryMethodChange={handleDeliveryMethodChange}
-        onContinue={handleContinueToCart}
-      />
     </View>
   );
 }
