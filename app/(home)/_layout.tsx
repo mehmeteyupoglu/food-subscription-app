@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import { Tabs, useRouter } from "expo-router";
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
@@ -32,12 +32,6 @@ function TabBarWithSafeArea() {
             bottom: 0,
             left: 0,
             right: 0,
-            ...Platform.select({
-              android: {
-                elevation: 0,
-                shadowOpacity: 0,
-              },
-            }),
           },
           tabBarLabelStyle: {
             fontSize: 12,
@@ -45,13 +39,10 @@ function TabBarWithSafeArea() {
           },
           tabBarItemStyle: {
             backgroundColor: 'transparent',
-            ...Platform.select({
-              android: {
-                elevation: 0,
-                shadowOpacity: 0,
-              },
-            }),
           },
+          tabBarButton: (props: any) => (
+            <Pressable {...props} android_ripple={{ color: 'transparent' }} />
+          ),
           headerShown: false,
         }}
       >
