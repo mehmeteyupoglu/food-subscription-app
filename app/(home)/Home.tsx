@@ -62,7 +62,7 @@ export default function Home() {
     }
 
     // Delivery method discount
-    const takeawayDiscount = deliveryMethod === 'paket_servis' ? 6 : 0;
+    const takeawayDiscount = deliveryMethod === 'paket_servis' ? 0 : 6;
 
     // Total discount percentage
     const totalDiscount = peopleDiscount + subscriptionDiscount + takeawayDiscount;

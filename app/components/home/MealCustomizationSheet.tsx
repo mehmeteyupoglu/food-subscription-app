@@ -31,11 +31,15 @@ interface MealCustomizationSheetProps {
 const deliveryOptions = [
   {
     label: 'Gel Al (6% İndirimli)',
-    value: 'paket_servis',
+    value: 'gel_al',
   },
   {
-    label: 'Restoranda Yemek',
+    label: 'Restoranda Yemek (6% İndirimli)',
     value: 'restoranda_yemek',
+  },
+  {
+    label: 'Paket Servis',
+    value: 'paket_servis',
   },
 ];
 
@@ -68,7 +72,7 @@ export default function MealCustomizationSheet({
     if (!selectedPlan) return "Plan Seçiniz";
 
     const planName = selectedPlan === "aylik" ? "Aylık Plan" : "Haftalık Plan";
-    const days = selectedPlan === "aylik" ? "20 Gün" : "5 Gün";
+    const days = selectedPlan === "aylik" ? "20 Gün (4% İndirimli)" : "5 Gün (3% İndirimli)";
 
     return `${planName} - ${days}`;
   };
@@ -134,6 +138,14 @@ export default function MealCustomizationSheet({
               placeholder="1"
               placeholderTextColor={colors.textSecondary}
             />
+            {parseInt(personCount) > 1 && (
+              <Text style={[styles.discountText, { fontFamily: 'Sen_400Regular' }]}>
+                {parseInt(personCount) <= 5
+                  ? `${parseInt(personCount)}% Grup Abonelik İndirimi`
+                  : `${4 + Math.floor(Math.min(parseInt(personCount), 20) / 5)}% kişi indirimi`
+                }
+              </Text>
+            )}
           </View>
 
           <View style={styles.section}>
@@ -269,5 +281,10 @@ const styles = StyleSheet.create({
   mealsText: {
     fontSize: 14,
     color: colors.textSecondary,
+  },
+  discountText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginTop: 8,
   },
 }); 
