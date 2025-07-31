@@ -96,7 +96,7 @@ export default function Home() {
   const handleContinueToCart = () => {
     console.log("Sepete devam et");
     closeSheet();
-    router.push('/views/ShoppingCart');
+    router.push('/Cart');
   };
 
   const sliderImages = [

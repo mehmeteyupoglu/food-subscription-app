@@ -6,6 +6,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import colors from "@/colors";
 import BackButton from "@/components/ui/BackButton";
+import CustomButton from "@/components/ui/inputs/CustomButton";
 
 // Mock data - these will be dynamic in real implementation
 const CART_DATA = {
@@ -75,8 +76,8 @@ export default function ShoppingCart() {
         <View style={styles.productRow}>
           <Image source={CART_DATA.product.image} style={styles.productImage} />
           <View style={styles.productInfo}>
-            <Text style={[styles.productTitle, { fontFamily: 'Sen_700Bold' }]}>{CART_DATA.product.title}</Text>
-            <Text style={[styles.productPrice, { fontFamily: 'Sen_700Bold' }]}>{CART_DATA.product.basePrice.toLocaleString('tr-TR')} ₺</Text>
+            <Text style={[styles.productTitle, { fontFamily: 'Sen_400Regular' }]}>{CART_DATA.product.title}</Text>
+            <Text style={[styles.productPrice, { fontFamily: 'Sen_400Regular' }]}>{CART_DATA.product.basePrice.toLocaleString('tr-TR')} ₺</Text>
 
             {/* Quantity Selector */}
             <View style={styles.quantitySelector}>
@@ -84,14 +85,14 @@ export default function ShoppingCart() {
                 style={styles.quantityButton}
                 onPress={() => handleQuantityChange(false)}
               >
-                <MaterialIcons name="remove" size={20} color={colors.background} />
+                <MaterialIcons name="remove" size={16} color={colors.background} />
               </TouchableOpacity>
               <Text style={[styles.quantityText, { fontFamily: 'Sen_700Bold' }]}>{quantity}</Text>
               <TouchableOpacity
                 style={styles.quantityButton}
                 onPress={() => handleQuantityChange(true)}
               >
-                <MaterialIcons name="add" size={20} color={colors.background} />
+                <MaterialIcons name="add" size={16} color={colors.background} />
               </TouchableOpacity>
             </View>
           </View>
@@ -101,61 +102,65 @@ export default function ShoppingCart() {
       {/* Price Breakdown */}
       <View style={styles.priceBreakdown}>
         <View style={styles.priceRow}>
-          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>PORSİYON FİYATI</Text>
-          <Text style={[styles.priceValue, { fontFamily: 'Sen_700Bold' }]}>₺{CART_DATA.pricing.portionPrice}</Text>
+          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>PORSİYON FİYATI:</Text>
+          <Text style={[styles.priceValue, { fontFamily: 'Sen_400Regular' }]}>₺{CART_DATA.pricing.portionPrice}</Text>
         </View>
         <View style={styles.priceRow}>
-          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>HAFTALIK ABONELİK FIRSATI (3%)</Text>
-          <Text style={[styles.discountValue, { fontFamily: 'Sen_700Bold' }]}>- ₺{CART_DATA.pricing.weeklyDiscount}</Text>
+          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>HAFTALIK ABONELİK FIRSATI (3%):</Text>
+          <Text style={[styles.discountValue, { fontFamily: 'Sen_400Regular' }]}>- ₺{CART_DATA.pricing.weeklyDiscount}</Text>
         </View>
         <View style={styles.priceRow}>
-          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>GEL AL İNDİRİMİ (6%)</Text>
-          <Text style={[styles.discountValue, { fontFamily: 'Sen_700Bold' }]}>- ₺{CART_DATA.pricing.takeawayDiscount}</Text>
+          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>GEL AL İNDİRİMİ (6%):</Text>
+          <Text style={[styles.discountValue, { fontFamily: 'Sen_400Regular' }]}>- ₺{CART_DATA.pricing.takeawayDiscount}</Text>
         </View>
         <View style={styles.priceRow}>
-          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>İNDİRİMLİ PORSİYON FİYATI</Text>
-          <Text style={[styles.priceValue, { fontFamily: 'Sen_700Bold' }]}>₺{CART_DATA.pricing.discountedPortionPrice}</Text>
+          <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>İNDİRİMLİ PORSİYON FİYATI:</Text>
+          <Text style={[styles.priceValue, { fontFamily: 'Sen_400Regular' }]}>₺{CART_DATA.pricing.discountedPortionPrice}</Text>
         </View>
       </View>
 
       {/* Total Price */}
       <View style={styles.totalSection}>
-        <Text style={[styles.totalLabel, { fontFamily: 'Sen_700Bold' }]}>TOPLAM FİYAT:</Text>
-        <Text style={[styles.calculationDetail, { fontFamily: 'Sen_400Regular' }]}>
-          ({CART_DATA.pricing.totalMeals} ÖĞÜN X ₺{CART_DATA.pricing.discountedPortionPrice})
-        </Text>
+        <View>
+          <Text style={[styles.totalLabel, { fontFamily: 'Sen_700Bold' }]}>TOPLAM FİYAT:</Text>
+          <Text style={[styles.calculationDetail, { fontFamily: 'Sen_700Bold' }]}>
+            ({CART_DATA.pricing.totalMeals} ÖĞÜN X ₺{CART_DATA.pricing.discountedPortionPrice})
+          </Text>
+        </View>
         <Text style={[styles.finalTotal, { fontFamily: 'Sen_700Bold' }]}>₺{CART_DATA.pricing.totalPrice.toLocaleString('tr-TR')}</Text>
       </View>
 
       {/* Bottom Container */}
       <View style={styles.bottomContainer}>
         {/* Subscription Start Date */}
+        <Text style={[styles.cardTitle, { fontFamily: 'Sen_400Regular' }]}>ABONELİK BAŞLANGIÇ TARİHİ</Text>
         <View style={styles.subContainer}>
-          <Text style={[styles.cardTitle, { fontFamily: 'Sen_700Bold' }]}>ABONELIK BAŞLANGIÇ TARİHİ</Text>
           <View style={styles.infoRow}>
             <View style={styles.infoIcon}>
-              <MaterialIcons name="info" size={16} color={colors.background} />
+              <Image source={require("../../assets/icons/info.png")} style={{ width: 35, height: 35 }} />
             </View>
             <View style={styles.infoContent}>
-              <Text style={[styles.infoDate, { fontFamily: 'Sen_700Bold' }]}>{CART_DATA.subscription.startDate}</Text>
+              <Text style={[styles.infoDate, { fontFamily: 'Sen_400Regular' }]}>{CART_DATA.subscription.startDate}</Text>
               <Text style={[styles.infoInstruction, { fontFamily: 'Sen_400Regular' }]}>{CART_DATA.subscription.instruction}</Text>
             </View>
           </View>
         </View>
 
         {/* Branch Address */}
-        <View style={styles.subContainer}>
-          <Text style={[styles.cardTitle, { fontFamily: 'Sen_700Bold' }]}>ŞUBE ADRESİ</Text>
+        <Text style={[styles.cardTitle, { fontFamily: 'Sen_400Regular' }]}>ŞUBE ADRESİ</Text>
+        <View style={[styles.subContainer, { marginBottom: 22 }]}>
           <View style={styles.branchInfo}>
-            <Text style={[styles.branchName, { fontFamily: 'Sen_700Bold' }]}>{CART_DATA.branch.name}</Text>
+            <Text style={[styles.branchName, { fontFamily: 'Sen_400Regular' }]}>{CART_DATA.branch.name}</Text>
             <Text style={[styles.branchAddress, { fontFamily: 'Sen_400Regular' }]}>{CART_DATA.branch.address}</Text>
           </View>
         </View>
 
         {/* Confirm Button */}
-        <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
-          <Text style={[styles.confirmButtonText, { fontFamily: 'Sen_700Bold' }]}>ONAYLA</Text>
-        </TouchableOpacity>
+        <CustomButton
+          title="ONAYLA"
+          onPress={handleConfirm}
+          variant="primary"
+        />
       </View>
     </View>
   );
@@ -173,7 +178,7 @@ const styles = StyleSheet.create({
     paddingVertical: 21,
   },
   headerTitle: {
-    fontSize: 17,
+    fontSize: 18,
     color: colors.background,
     marginLeft: 18,
   },
@@ -186,16 +191,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 12,
+    width: 130,
+    height: 120,
+    borderRadius: 32,
     marginRight: 16,
   },
   productInfo: {
     flex: 1,
   },
   productTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: colors.background,
     marginBottom: 8,
@@ -209,11 +214,13 @@ const styles = StyleSheet.create({
   quantitySelector: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginLeft: 'auto',
   },
   quantityButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 25,
+    height: 22,
+    borderRadius: 11,
     backgroundColor: '#2d2d44',
     justifyContent: 'center',
     alignItems: 'center',
@@ -222,7 +229,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: colors.background,
-    marginHorizontal: 16,
+    marginHorizontal: 21,
   },
   priceBreakdown: {
     paddingHorizontal: 20,
@@ -232,37 +239,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 5,
   },
   priceLabel: {
     fontSize: 14,
-    color: '#cccccc',
+    color: '#ffffff',
   },
   priceValue: {
-    fontSize: 14,
+    fontSize: 16,
     color: colors.background,
-    fontWeight: '600',
   },
   discountValue: {
-    fontSize: 14,
-    color: '#ff6b6b',
-    fontWeight: '600',
+    fontSize: 16,
+    color: '#ffffff',
   },
   totalSection: {
-    paddingHorizontal: 20,
-    marginBottom: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#333333',
+    // paddingHorizontal: 20,
+    marginBottom: 16,
     paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#ffffff',
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   totalLabel: {
     fontSize: 16,
-    fontWeight: '700',
     color: colors.background,
-    marginBottom: 4,
+    marginBottom: 5,
   },
   calculationDetail: {
-    fontSize: 12,
+    fontSize: 16,
     color: '#cccccc',
     marginBottom: 8,
   },
@@ -285,21 +293,21 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   cardTitle: {
-    fontSize: 12,
-    color: '#666666',
+    fontSize: 14,
+    color: colors.textSecondary,
     fontWeight: '600',
-    marginBottom: 12,
+    marginTop: 12,
+    marginBottom: 10,
     textTransform: 'uppercase',
   },
   infoRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   infoIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: colors.primary,
+
+    // borderRadius: 17.5,
+    // colo: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
@@ -308,61 +316,46 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   infoDate: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#333333',
+    fontSize: 15,
+    color: colors.text,
     marginBottom: 4,
   },
   infoInstruction: {
-    fontSize: 12,
-    color: '#666666',
+    fontSize: 14,
+    color: '#676767',
+    opacity: 0.5,
     lineHeight: 16,
   },
   branchInfo: {
     marginTop: 4,
   },
   branchName: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#333333',
+    fontSize: 15,
+    color: colors.text,
     marginBottom: 4,
   },
   branchAddress: {
-    fontSize: 12,
-    color: '#666666',
+    fontSize: 14,
+    color: '#676767',
+    opacity: 0.5,
     lineHeight: 16,
-  },
-  confirmButton: {
-    backgroundColor: colors.primary,
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-  confirmButtonText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.background,
-    textTransform: 'uppercase',
   },
   bottomContainer: {
     backgroundColor: colors.background,
     paddingHorizontal: 20,
-    paddingBottom: 20,
-    paddingTop: 20,
+    paddingBottom: 22,
+    paddingTop: 10,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   subContainer: {
     backgroundColor: "#F6F8FA",
-    marginBottom: 16,
-    borderRadius: 12,
+    borderRadius: 16,
+    // marginVertical: 6,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
 });

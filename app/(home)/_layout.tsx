@@ -15,7 +15,7 @@ function TabBarWithSafeArea() {
     <SafeAreaView style={styles.container}>
       <AppHeader
         onMenuPress={() => console.log("Menu açıldı")}
-        onCartPress={() => router.push("/views/ShoppingCart")}
+        onCartPress={() => router.push("/Cart")}
       />
       <Tabs
         screenOptions={{
