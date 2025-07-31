@@ -31,11 +31,15 @@ interface MealCustomizationSheetProps {
 const deliveryOptions = [
   {
     label: 'Gel Al (6% İndirimli)',
-    value: 'paket_servis',
+    value: 'take_away',
   },
   {
-    label: 'Restoranda Yemek',
-    value: 'restoranda_yemek',
+    label: 'Restoranda Yemek (6% İndirimli)',
+    value: 'dine_in',
+  },
+  {
+    label: 'Paket',
+    value: 'delivery',
   },
 ];
 
