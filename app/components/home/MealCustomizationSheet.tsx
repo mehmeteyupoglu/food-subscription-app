@@ -12,6 +12,7 @@ import {
 
 import colors from '@/colors';
 import Dropdown from '@/components/ui/Dropdown';
+import { deliveryOptions } from '@/constants/meal';
 import ToggleButton from './ToggleButton';
 
 interface MealCustomizationSheetProps {
@@ -27,21 +28,6 @@ interface MealCustomizationSheetProps {
   onDeliveryMethodChange: (method: string) => void;
   onContinue: () => void;
 }
-
-const deliveryOptions = [
-  {
-    label: 'Gel Al (6% İndirimli)',
-    value: 'take_away',
-  },
-  {
-    label: 'Restoranda Yemek (6% İndirimli)',
-    value: 'dine_in',
-  },
-  {
-    label: 'Paket',
-    value: 'delivery',
-  },
-];
 
 export default function MealCustomizationSheet({
   bottomSheetRef,

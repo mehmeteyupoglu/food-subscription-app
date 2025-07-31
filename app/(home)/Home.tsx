@@ -10,6 +10,7 @@ import {
 import colors from "@/colors";
 import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
+import { subscriptionPlans } from '@/constants/meal';
 import { router } from 'expo-router';
 import { useBottomSheet } from '../../lib/BottomSheetContext';
 
@@ -118,21 +119,20 @@ export default function Home() {
           <Text style={styles.sectionTitle}>Abonelik Seçin</Text>
 
           <View style={styles.planCards}>
-            <PlanCard
-              imageSource={require("../../assets/manti.png")}
-              title="Aylık"
-              subTitle="Sağlıklı Ev Yemekleri"
-              duration="20 Gün"
-              onPress={() => handlePlanAdd("aylik")}
-            />
-
-            <PlanCard
-              imageSource={require("../../assets/ciborek.png")}
-              title="Haftalık"
-              subTitle="Sağlıklı Ev Yemekleri"
-              duration="5 Gün"
-              onPress={() => handlePlanAdd("haftalik")}
-            />
+            {
+              subscriptionPlans
+                .filter(plan => plan.status === 'active')
+                .map((plan) => (
+                  <PlanCard
+                    key={plan.value}
+                    imageSource={require("../../assets/manti.png")}
+                    title={plan.label}
+                    subTitle="Sağlıklı Ev Yemekleri"
+                    duration={plan.duration.toString() + " Gün"}
+                    onPress={() => handlePlanAdd(plan.value)}
+                  />
+                ))
+            }
           </View>
         </View>
 
