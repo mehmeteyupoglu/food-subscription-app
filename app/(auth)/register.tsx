@@ -5,13 +5,13 @@ import { Link, router } from "expo-router";
 
 import AuthPageContainer from "@/(auth)/components/AuthPageContainer";
 import colors from "@/colors";
-import CountdownButton from "@/components/CountdownButton";
-import CustomButton from "@/components/CustomButton";
-import CustomTextInput from "@/components/CustomTextInput";
-import OTPInput from "@/components/OTPInput";
+import CountdownButton from "@/components/ui/inputs/CountdownButton";
+import CustomButton from "@/components/ui/inputs/CustomButton";
+import CustomTextInput from "@/components/ui/inputs/CustomTextInput";
+import OTPInput from "@/components/ui/inputs/OTPInput";
 import PhoneInput, {
   validateTurkishPhoneNumber,
-} from "@/components/PhoneInput";
+} from "@/components/ui/inputs/PhoneInput";
 
 type Step = "register" | "verification";
 

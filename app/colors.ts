@@ -6,8 +6,8 @@ const colors = {
   gray: "#F5F5F5",
   inputBackground: "#F5F5F5",
   border: "#E5E5E5",
-  text: "#1A1A1A",
-  textSecondary: "#757575",
+  text: "#32343E",
+  textSecondary: "#A0A5BA",
 } as const;
 
 export default colors;
