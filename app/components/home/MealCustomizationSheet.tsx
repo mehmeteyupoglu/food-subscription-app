@@ -13,6 +13,7 @@ import {
 import colors from '@/colors';
 import Dropdown from '@/components/ui/Dropdown';
 import { deliveryOptions } from '@/constants/meal';
+import { getPlanDisplayText } from '@/utils/planUtils';
 import ToggleButton from './ToggleButton';
 
 interface MealCustomizationSheetProps {
@@ -53,15 +54,7 @@ export default function MealCustomizationSheet({
     []
   );
 
-  // Plan bilgisini formatla
-  const getPlanDisplayText = () => {
-    if (!selectedPlan) return "Plan Seçiniz";
 
-    const planName = selectedPlan === "aylik" ? "Aylık Plan" : "Haftalık Plan";
-    const days = selectedPlan === "aylik" ? "20 Gün" : "5 Gün";
-
-    return `${planName} - ${days}`;
-  };
 
   if (!fontsLoaded) {
     return null;
@@ -83,7 +76,7 @@ export default function MealCustomizationSheet({
             </Text>
             <View style={styles.dropdown}>
               <Text style={[styles.dropdownText, { fontFamily: 'Sen_400Regular' }]}>
-                {getPlanDisplayText()}
+                {getPlanDisplayText(selectedPlan)}
               </Text>
               <MaterialIcons name="keyboard-arrow-down" size={20} color={colors.textSecondary} />
             </View>

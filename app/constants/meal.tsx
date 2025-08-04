@@ -52,7 +52,9 @@ const subscriptionPlans = [
 ]
 
 export {
-  deliveryOptions,
-  subscriptionPlans
+  deliveryOptions, subscriptionPlans
 };
+
+// Default export to satisfy Expo Router
+export default { deliveryOptions, subscriptionPlans };
 
