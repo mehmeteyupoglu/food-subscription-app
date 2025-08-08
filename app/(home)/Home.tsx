@@ -44,7 +44,7 @@ export default function Home() {
     if (!selectedPlan || !personCount) return;
 
     const people = parseInt(personCount) || 1;
-    const days = selectedPlan === "aylik" ? 20 : 5; // Aylık: 20 gün, Haftalık: 5 gün
+    const days = subscriptionPlans.find(plan => plan.value === selectedPlan)?.duration || 0;
 
     // People discount calculation
     let peopleDiscount = 0;
@@ -56,9 +56,9 @@ export default function Home() {
 
     // Subscription discount calculation
     let subscriptionDiscount = 0;
-    if (selectedPlan === "haftalik") {
+    if (selectedPlan === "weekly_5") {
       subscriptionDiscount = 3;
-    } else if (selectedPlan === "aylik") {
+    } else if (selectedPlan === "monthly") {
       subscriptionDiscount = 4;
     }
 
@@ -69,7 +69,7 @@ export default function Home() {
     const totalDiscount = peopleDiscount + subscriptionDiscount + takeawayDiscount;
 
     // Determine meals per day based on selected meal option
-    const mealsPerDay = selectedMealType === "2 öğün" ? 2 : 1;
+    const mealsPerDay = selectedMealType === "2_meals" ? 2 : 1;
     const mealsTotal = people * mealsPerDay * days;
 
     // Apply discount to calculate the discounted meal price

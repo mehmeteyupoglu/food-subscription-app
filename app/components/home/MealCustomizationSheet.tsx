@@ -12,7 +12,7 @@ import {
 
 import colors from '@/colors';
 import Dropdown from '@/components/ui/Dropdown';
-import { deliveryOptions } from '@/constants/meal';
+import { deliveryOptions, mealTypes } from '@/constants/meal';
 import { getPlanDisplayText } from '@/utils/planUtils';
 import ToggleButton from './ToggleButton';
 
@@ -87,21 +87,14 @@ export default function MealCustomizationSheet({
               ÖĞÜN TERCİHİ
             </Text>
             <View style={styles.buttonGroup}>
-              <ToggleButton
-                title="2 öğün"
-                isSelected={selectedMealType === '2 öğün'}
-                onPress={() => onMealTypeSelect('2 öğün')}
-              />
-              <ToggleButton
-                title="öğle"
-                isSelected={selectedMealType === 'öğle'}
-                onPress={() => onMealTypeSelect('öğle')}
-              />
-              <ToggleButton
-                title="akşam"
-                isSelected={selectedMealType === 'akşam'}
-                onPress={() => onMealTypeSelect('akşam')}
-              />
+              {mealTypes.map((mealType) => (
+                <ToggleButton
+                  key={mealType.value}
+                  title={mealType.label}
+                  isSelected={selectedMealType === mealType.value}
+                  onPress={() => onMealTypeSelect(mealType.value)}
+                />
+              ))}
             </View>
           </View>
 

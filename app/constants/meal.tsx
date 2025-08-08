@@ -51,10 +51,26 @@ const subscriptionPlans = [
   }
 ]
 
+const mealTypes = [
+
+  {
+    label: 'Öğle',
+    value: 'lunch',
+  },
+  {
+    label: 'Akşam',
+    value: 'dinner',
+  },
+  {
+    label: '2 öğün',
+    value: '2_meals',
+  },
+]
+
 export {
-  deliveryOptions, subscriptionPlans
+  deliveryOptions, mealTypes, subscriptionPlans
 };
 
 // Default export to satisfy Expo Router
-export default { deliveryOptions, subscriptionPlans };
+export default { deliveryOptions, subscriptionPlans, mealTypes };
 
