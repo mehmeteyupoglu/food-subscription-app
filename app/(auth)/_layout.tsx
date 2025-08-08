@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 
-import { Stack, useSegments } from "expo-router";
+import { router, Stack, useSegments } from "expo-router";
 
-import BackButton from "@/components/BackButton";
-import SkipButton from "@/components/SkipButton";
+import BackButton from "@/components/ui/BackButton";
+import SkipButton from "@/components/ui/SkipButton";
 
 import { ScrollProvider, useScroll } from "../../lib/ScrollContext";
 
@@ -54,6 +54,7 @@ function AuthLayoutContent() {
   const handleSkip = () => {
     // TODO: Navigate to main app without login
     console.log("Skip login");
+    router.replace("/(home)/Home");
   };
 
   const handleBackPress = () => {
