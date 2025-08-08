@@ -11,11 +11,14 @@ export default function GlobalBottomSheet() {
     selectedPlan,
     totalPrice,
     totalMeals,
+    totalDiscount,
+    discountedMealPrice,
     setSelectedMealType,
     setPersonCount,
     setDeliveryMethod,
     setTotalPrice,
     setTotalMeals,
+    setTotalDiscount,
     closeSheet,
   } = useBottomSheet();
 
@@ -33,10 +36,13 @@ export default function GlobalBottomSheet() {
       selectedPlan={selectedPlan}
       totalPrice={totalPrice}
       totalMeals={totalMeals}
+      totalDiscount={totalDiscount}
+      discountedMealPrice={discountedMealPrice}
       onMealTypeSelect={setSelectedMealType}
       onPersonCountChange={setPersonCount}
       onDeliveryMethodChange={setDeliveryMethod}
       onContinue={handleContinueToCart}
+      onTotalDiscountChange={setTotalDiscount}
     />
   );
 } 

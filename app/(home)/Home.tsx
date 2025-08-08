@@ -24,14 +24,13 @@ export default function Home() {
     personCount,
     deliveryMethod,
     selectedPlan,
-    totalPrice,
-    totalMeals,
     setSelectedMealType,
-    setPersonCount,
     setDeliveryMethod,
     setSelectedPlan,
     setTotalPrice,
     setTotalMeals,
+    setTotalDiscount,
+    setDiscountedMealPrice,
     openSheet,
     closeSheet
   } = useBottomSheet();
@@ -68,12 +67,15 @@ export default function Home() {
     // Total discount percentage
     const totalDiscount = peopleDiscount + subscriptionDiscount + takeawayDiscount;
 
+    setTotalDiscount(totalDiscount);
+
     // Determine meals per day based on selected meal option
     const mealsPerDay = selectedMealType === "2_meals" ? 2 : 1;
     const mealsTotal = people * mealsPerDay * days;
 
     // Apply discount to calculate the discounted meal price
     const discountedMealPrice = Math.round(mealPrice * (1 - totalDiscount / 100) * 10) / 10;
+    setDiscountedMealPrice(discountedMealPrice);
 
     // Calculate overall totals
     setTotalMeals(mealsTotal);

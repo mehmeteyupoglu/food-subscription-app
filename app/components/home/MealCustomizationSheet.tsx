@@ -24,9 +24,12 @@ interface MealCustomizationSheetProps {
   selectedPlan: string;
   totalPrice: number;
   totalMeals: number;
+  totalDiscount: number;
+  discountedMealPrice: number;
   onMealTypeSelect: (mealType: string) => void;
   onPersonCountChange: (count: string) => void;
   onDeliveryMethodChange: (method: string) => void;
+  onTotalDiscountChange: (discount: number) => void;
   onContinue: () => void;
 }
 
@@ -38,6 +41,8 @@ export default function MealCustomizationSheet({
   selectedPlan,
   totalPrice,
   totalMeals,
+  totalDiscount,
+  discountedMealPrice,
   onMealTypeSelect,
   onPersonCountChange,
   onDeliveryMethodChange,
@@ -128,7 +133,7 @@ export default function MealCustomizationSheet({
         <View style={styles.bottomSection}>
           <View style={styles.priceRow}>
             <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>
-              PAKET TUTARI
+              PAKET TUTARI (Toplam {totalMeals} öğün)
             </Text>
             <Text style={[styles.priceValue, { fontFamily: 'Sen_400Regular' }]}>
               {totalPrice > 0 ? `${totalPrice.toLocaleString('tr-TR')} ₺` : '0 ₺'}
@@ -138,7 +143,10 @@ export default function MealCustomizationSheet({
           {totalMeals > 0 && (
             <View style={styles.mealsInfo}>
               <Text style={[styles.mealsText, { fontFamily: 'Sen_400Regular' }]}>
-                Toplam {totalMeals} öğün
+                Toplam indirim {totalDiscount} %
+              </Text>
+              <Text style={[styles.mealsText, { fontFamily: 'Sen_400Regular' }]}>
+                İndirimli fiyat (1 öğün) {discountedMealPrice.toLocaleString('tr-TR')} ₺
               </Text>
             </View>
           )}
