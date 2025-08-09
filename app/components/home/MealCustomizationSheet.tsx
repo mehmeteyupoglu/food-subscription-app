@@ -12,6 +12,8 @@ import {
 
 import colors from '@/colors';
 import Dropdown from '@/components/ui/Dropdown';
+import { deliveryOptions, mealTypes } from '@/constants/meal';
+import { getPlanDisplayText } from '@/utils/planUtils';
 import ToggleButton from './ToggleButton';
 
 interface MealCustomizationSheetProps {
@@ -22,26 +24,14 @@ interface MealCustomizationSheetProps {
   selectedPlan: string;
   totalPrice: number;
   totalMeals: number;
+  totalDiscount: number;
+  discountedMealPrice: number;
   onMealTypeSelect: (mealType: string) => void;
   onPersonCountChange: (count: string) => void;
   onDeliveryMethodChange: (method: string) => void;
+  onTotalDiscountChange: (discount: number) => void;
   onContinue: () => void;
 }
-
-const deliveryOptions = [
-  {
-    label: 'Gel Al (6% İndirimli)',
-    value: 'gel_al',
-  },
-  {
-    label: 'Restoranda Yemek (6% İndirimli)',
-    value: 'restoranda_yemek',
-  },
-  {
-    label: 'Paket Servis',
-    value: 'paket_servis',
-  },
-];
 
 export default function MealCustomizationSheet({
   bottomSheetRef,
@@ -51,6 +41,8 @@ export default function MealCustomizationSheet({
   selectedPlan,
   totalPrice,
   totalMeals,
+  totalDiscount,
+  discountedMealPrice,
   onMealTypeSelect,
   onPersonCountChange,
   onDeliveryMethodChange,
@@ -67,15 +59,6 @@ export default function MealCustomizationSheet({
     []
   );
 
-  // Plan bilgisini formatla
-  const getPlanDisplayText = () => {
-    if (!selectedPlan) return "Plan Seçiniz";
-
-    const planName = selectedPlan === "aylik" ? "Aylık Plan" : "Haftalık Plan";
-    const days = selectedPlan === "aylik" ? "20 Gün (4% İndirimli)" : "5 Gün (3% İndirimli)";
-
-    return `${planName} - ${days}`;
-  };
 
   if (!fontsLoaded) {
     return null;
@@ -97,7 +80,7 @@ export default function MealCustomizationSheet({
             </Text>
             <View style={styles.dropdown}>
               <Text style={[styles.dropdownText, { fontFamily: 'Sen_400Regular' }]}>
-                {getPlanDisplayText()}
+                {getPlanDisplayText(selectedPlan)}
               </Text>
               <MaterialIcons name="keyboard-arrow-down" size={20} color={colors.textSecondary} />
             </View>
@@ -108,21 +91,14 @@ export default function MealCustomizationSheet({
               ÖĞÜN TERCİHİ
             </Text>
             <View style={styles.buttonGroup}>
-              <ToggleButton
-                title="2 öğün"
-                isSelected={selectedMealType === '2 öğün'}
-                onPress={() => onMealTypeSelect('2 öğün')}
-              />
-              <ToggleButton
-                title="öğle"
-                isSelected={selectedMealType === 'öğle'}
-                onPress={() => onMealTypeSelect('öğle')}
-              />
-              <ToggleButton
-                title="akşam"
-                isSelected={selectedMealType === 'akşam'}
-                onPress={() => onMealTypeSelect('akşam')}
-              />
+              {mealTypes.map((mealType) => (
+                <ToggleButton
+                  key={mealType.value}
+                  title={mealType.label}
+                  isSelected={selectedMealType === mealType.value}
+                  onPress={() => onMealTypeSelect(mealType.value)}
+                />
+              ))}
             </View>
           </View>
 
@@ -164,7 +140,7 @@ export default function MealCustomizationSheet({
         <View style={styles.bottomSection}>
           <View style={styles.priceRow}>
             <Text style={[styles.priceLabel, { fontFamily: 'Sen_400Regular' }]}>
-              PAKET TUTARI
+              PAKET TUTARI (Toplam {totalMeals} öğün)
             </Text>
             <Text style={[styles.priceValue, { fontFamily: 'Sen_400Regular' }]}>
               {totalPrice > 0 ? `${totalPrice.toLocaleString('tr-TR')} ₺` : '0 ₺'}
@@ -174,7 +150,10 @@ export default function MealCustomizationSheet({
           {totalMeals > 0 && (
             <View style={styles.mealsInfo}>
               <Text style={[styles.mealsText, { fontFamily: 'Sen_400Regular' }]}>
-                Toplam {totalMeals} öğün
+                Toplam indirim {totalDiscount} %
+              </Text>
+              <Text style={[styles.mealsText, { fontFamily: 'Sen_400Regular' }]}>
+                İndirimli fiyat (1 öğün) {discountedMealPrice.toLocaleString('tr-TR')} ₺
               </Text>
             </View>
           )}

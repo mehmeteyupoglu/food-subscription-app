@@ -10,6 +10,7 @@ import {
 import colors from "@/colors";
 import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
+import { baseMealPrice, subscriptionPlans } from '@/constants/meal';
 import { router } from 'expo-router';
 import { useBottomSheet } from '../../lib/BottomSheetContext';
 
@@ -31,19 +32,21 @@ export default function Home() {
     setSelectedPlan,
     setTotalPrice,
     setTotalMeals,
+    setTotalDiscount,
+    setDiscountedMealPrice,
     openSheet,
     closeSheet
   } = useBottomSheet();
 
   // Base meal price
-  const mealPrice = 310;
+  const mealPrice = baseMealPrice;
 
   // Price calculation effect
   useEffect(() => {
     if (!selectedPlan || !personCount) return;
 
     const people = parseInt(personCount) || 1;
-    const days = selectedPlan === "aylik" ? 20 : 5; // Aylık: 20 gün, Haftalık: 5 gün
+    const days = subscriptionPlans.find(plan => plan.value === selectedPlan)?.duration || 0;
 
     // People discount calculation
     let peopleDiscount = 0;
@@ -55,24 +58,27 @@ export default function Home() {
 
     // Subscription discount calculation
     let subscriptionDiscount = 0;
-    if (selectedPlan === "haftalik") {
+    if (selectedPlan === "weekly_5") {
       subscriptionDiscount = 3;
-    } else if (selectedPlan === "aylik") {
+    } else if (selectedPlan === "monthly") {
       subscriptionDiscount = 4;
     }
 
     // Delivery method discount
-    const takeawayDiscount = deliveryMethod === 'paket_servis' ? 0 : 6;
+    const takeawayDiscount = deliveryMethod === 'dine_in' || deliveryMethod === 'take_away' ? 6 : 0;
 
     // Total discount percentage
     const totalDiscount = peopleDiscount + subscriptionDiscount + takeawayDiscount;
 
+    setTotalDiscount(totalDiscount);
+
     // Determine meals per day based on selected meal option
-    const mealsPerDay = selectedMealType === "2 öğün" ? 2 : 1;
+    const mealsPerDay = selectedMealType === "2_meals" ? 2 : 1;
     const mealsTotal = people * mealsPerDay * days;
 
     // Apply discount to calculate the discounted meal price
     const discountedMealPrice = Math.round(mealPrice * (1 - totalDiscount / 100) * 10) / 10;
+    setDiscountedMealPrice(discountedMealPrice);
 
     // Calculate overall totals
     setTotalMeals(mealsTotal);
@@ -118,21 +124,20 @@ export default function Home() {
           <Text style={styles.sectionTitle}>Abonelik Seçin</Text>
 
           <View style={styles.planCards}>
-            <PlanCard
-              imageSource={require("../../assets/manti.png")}
-              title="Aylık"
-              subTitle="Sağlıklı Ev Yemekleri"
-              duration="20 Gün"
-              onPress={() => handlePlanAdd("aylik")}
-            />
-
-            <PlanCard
-              imageSource={require("../../assets/ciborek.png")}
-              title="Haftalık"
-              subTitle="Sağlıklı Ev Yemekleri"
-              duration="5 Gün"
-              onPress={() => handlePlanAdd("haftalik")}
-            />
+            {
+              subscriptionPlans
+                .filter(plan => plan.status === 'active')
+                .map((plan) => (
+                  <PlanCard
+                    key={plan.value}
+                    imageSource={require("../../assets/manti.png")}
+                    title={plan.label}
+                    subTitle="Sağlıklı Ev Yemekleri"
+                    duration={plan.duration.toString() + " Gün"}
+                    onPress={() => handlePlanAdd(plan.value)}
+                  />
+                ))
+            }
           </View>
         </View>
 
