@@ -2,16 +2,19 @@ const baseMealPrice = 310;
 
 const deliveryOptions = [
   {
-    label: 'Gel Al (6% İndirimli)',
+    label: 'GEL AL',
     value: 'take_away',
+    discount: 6,
   },
   {
-    label: 'Restoranda Yemek (6% İndirimli)',
+    label: 'RESTORANDA YE',
     value: 'dine_in',
+    discount: 6,
   },
   {
-    label: 'Paket',
+    label: 'PAKET SERVİS',
     value: 'delivery',
+    discount: 0,
   },
 ];
 
@@ -22,6 +25,7 @@ const subscriptionPlans = [
     status: 'active',
     discount: 3,
     duration: 5,
+    discountLabel: 'HAFTALIK ABONELİK FIRSATI',
   },
   {
     label: 'Haftalık (6 Gün)',
@@ -29,6 +33,7 @@ const subscriptionPlans = [
     status: 'inactive',
     discount: 3,
     duration: 6,
+    discountLabel: 'HAFTALIK ABONELİK FIRSATI',
   },
   {
     label: 'Haftalık (3 Gün)',
@@ -36,6 +41,7 @@ const subscriptionPlans = [
     status: 'inactive',
     discount: 2,
     duration: 3,
+    discountLabel: 'HAFTALIK ABONELİK FIRSATI',
   },
   {
     label: 'Aylık (20 Gün)',
@@ -43,6 +49,7 @@ const subscriptionPlans = [
     status: 'active',
     discount: 4,
     duration: 20,
+    discountLabel: 'AYLIK ABONELİK FIRSATI',
   },
   {
     label: 'Aylık (15 Gün)',
@@ -50,11 +57,11 @@ const subscriptionPlans = [
     status: 'inactive',
     discount: 3,
     duration: 15,
+    discountLabel: 'AYLIK ABONELİK FIRSATI',
   }
 ]
 
 const mealTypes = [
-
   {
     label: 'Öğle',
     value: 'lunch',

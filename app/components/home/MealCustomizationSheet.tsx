@@ -13,6 +13,7 @@ import {
 import colors from '@/colors';
 import Dropdown from '@/components/ui/Dropdown';
 import { deliveryOptions, mealTypes } from '@/constants/meal';
+import { calculateGroupDiscount } from '@/utils/calculateGroupDiscount';
 import { getPlanDisplayText } from '@/utils/planUtils';
 import ToggleButton from './ToggleButton';
 
@@ -116,10 +117,7 @@ export default function MealCustomizationSheet({
             />
             {parseInt(personCount) > 1 && (
               <Text style={[styles.discountText, { fontFamily: 'Sen_400Regular' }]}>
-                {parseInt(personCount) <= 5
-                  ? `${parseInt(personCount)}% Grup Abonelik İndirimi`
-                  : `${4 + Math.floor(Math.min(parseInt(personCount), 20) / 5)}% kişi indirimi`
-                }
+                {`${calculateGroupDiscount(parseInt(personCount))}% Grup Abonelik İndirimi`}
               </Text>
             )}
           </View>
