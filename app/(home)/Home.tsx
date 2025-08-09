@@ -10,7 +10,7 @@ import {
 import colors from "@/colors";
 import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
-import { subscriptionPlans } from '@/constants/meal';
+import { baseMealPrice, subscriptionPlans } from '@/constants/meal';
 import { router } from 'expo-router';
 import { useBottomSheet } from '../../lib/BottomSheetContext';
 
@@ -36,7 +36,7 @@ export default function Home() {
   } = useBottomSheet();
 
   // Base meal price
-  const mealPrice = 310;
+  const mealPrice = baseMealPrice;
 
   // Price calculation effect
   useEffect(() => {

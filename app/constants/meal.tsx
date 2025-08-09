@@ -1,3 +1,5 @@
+const baseMealPrice = 310;
+
 const deliveryOptions = [
   {
     label: 'Gel Al (6% İndirimli)',
@@ -67,10 +69,8 @@ const mealTypes = [
   },
 ]
 
-export {
-  deliveryOptions, mealTypes, subscriptionPlans
-};
+export { baseMealPrice, deliveryOptions, mealTypes, subscriptionPlans };
 
 // Default export to satisfy Expo Router
-export default { deliveryOptions, subscriptionPlans, mealTypes };
+export default { deliveryOptions, subscriptionPlans, mealTypes, baseMealPrice };
 
