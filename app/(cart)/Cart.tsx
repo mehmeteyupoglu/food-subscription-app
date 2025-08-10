@@ -8,6 +8,7 @@ import colors from "@/colors";
 import BackButton from "@/components/ui/BackButton";
 import CustomButton from "@/components/ui/inputs/CustomButton";
 import { baseMealPrice, deliveryOptions, mealTypes, subscriptionPlans } from '@/constants/meal';
+import { SubscriptionPayload } from '@/types/cart';
 import { calculateDiscountAmount } from '@/utils/calculateDiscountAmount';
 import { calculateGroupDiscount } from '@/utils/calculateGroupDiscount';
 import { useBottomSheet } from 'lib/BottomSheetContext';
@@ -83,7 +84,40 @@ export default function ShoppingCart() {
   };
 
   const handleConfirm = () => {
-    console.log("Sipariş onaylandı");
+    // Create subscription payload from bottom sheet context
+    const subscriptionPayload: SubscriptionPayload = {
+      // Temel bilgiler
+      mealType: selectedMealType || '',
+      subscriptionPlan: selectedPlan || '',
+      personCount: parseInt(personCount) || 1,
+      days: [], // TODO: Calculate actual days based on subscription plan
+      startDate: new Date(), // TODO: Get actual start date
+      endDate: new Date(), // TODO: Calculate end date based on plan duration
+      deliveryMethod: deliveryMethod || '',
+      branch: 'BİTAT CAFE & RESTAURANT', // TODO: Get from context or selection
+
+      // Fiyat bilgileri
+      totalPrice: totalPrice || 0,
+      discountedPrice: discountedMealPrice || 0,
+      totalDiscount: (baseMealPrice - (discountedMealPrice || 0)) || 0,
+
+      // Müşteri bilgileri
+      customerInfo: {
+        name: '', // TODO: Get from user profile
+        phone: '', // TODO: Get from user profile
+        email: '', // TODO: Get from user profile
+        address: '', // TODO: Get from user profile
+      },
+
+      // Ek bilgiler
+      specialInstructions: '',
+      paymentMethod: 'credit_card', // TODO: Get from payment selection
+      status: 'active',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    console.log('Subscription Payload:', subscriptionPayload);
     // Navigate to confirmation or payment page
   };
 
