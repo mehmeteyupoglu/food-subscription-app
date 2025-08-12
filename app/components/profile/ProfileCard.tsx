@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: 14,
-    height: 14,
+    // height: 14,
   },
 }); 

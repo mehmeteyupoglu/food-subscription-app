@@ -19,7 +19,7 @@ export default function ProfilePage() {
         />
         <ProfileCard
           label="Aboneliğim"
-          imageSource={require('../../../assets/icons/menu.png')}
+          imageSource={require('../../../assets/icons/subscription.png')}
           onPress={() => router.push('/profile/subscription-details')}
         />
         <ProfileCard
