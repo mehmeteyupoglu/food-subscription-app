@@ -29,6 +29,11 @@ export default function ProfileCard({ label, onPress, imageSource }: ProfileCard
         />
       </View>
       <Text style={styles.cardLabel}>{label}</Text>
+      <Image
+        source={require('../../../assets/icons/right.png')}
+        style={styles.rightIcon}
+        resizeMode="contain"
+      />
     </TouchableOpacity>
   );
 }
@@ -61,5 +66,8 @@ const styles = StyleSheet.create({
   icon: {
     width: 14,
     // height: 14,
+  },
+  rightIcon: {
+    height: 10,
   },
 }); 
