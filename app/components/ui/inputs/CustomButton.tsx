@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Sen_700Bold",
   },
   primaryText: {
     color: colors.background,
