@@ -1,8 +1,8 @@
 import colors from '@/colors';
+import ProfileCard from '@/components/profile/ProfileCard';
 import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import ProfileCard from './components/ProfileCard';
 
 export default function ProfilePage() {
   return (
@@ -21,17 +21,17 @@ export default function ProfilePage() {
         <ProfileCard
           icon={<MaterialIcons name="person-outline" size={28} color={colors.primary} />}
           label="Kişisel Bilgiler"
-          onPress={() => router.push('/personal-details')}
+          onPress={() => router.push('/profile/personal-details')}
         />
         <ProfileCard
           icon={<MaterialCommunityIcons name="clipboard-text-outline" size={28} color="#6C63FF" />}
           label="Aboneliğim"
-          onPress={() => router.push('/subscription-details')}
+          onPress={() => router.push('/profile/subscription-details')}
         />
         <ProfileCard
           icon={<Ionicons name="heart-outline" size={28} color="#C85FFC" />}
           label="İletişim"
-          onPress={() => router.push('/contact-details')}
+          onPress={() => router.push('/profile/contact-details')}
         />
       </View>
 

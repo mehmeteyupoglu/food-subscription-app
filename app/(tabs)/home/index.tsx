@@ -12,7 +12,7 @@ import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
 import { subscriptionPlans } from '@/constants/meal';
 import { router } from 'expo-router';
-import { useBottomSheet } from '../../lib/BottomSheetContext';
+import { useBottomSheet } from 'lib/BottomSheetContext';
 
 export default function Home() {
   const [fontsLoaded] = useFonts({
@@ -127,7 +127,7 @@ export default function Home() {
                 .map((plan) => (
                   <PlanCard
                     key={plan.value}
-                    imageSource={require("../../assets/manti.png")}
+                    imageSource={require("../../../assets/manti.png")}
                     title={plan.label}
                     subTitle="Sağlıklı Ev Yemekleri"
                     duration={plan.duration.toString() + " Gün"}

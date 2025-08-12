@@ -73,7 +73,7 @@ function TabBarWithSafeArea() {
           }}
         />
         <Tabs.Screen
-          name="Profile"
+          name="profile"
           options={{
             title: "Profil",
             tabBarIcon: ({ color, size }) => (

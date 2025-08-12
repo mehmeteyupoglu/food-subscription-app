@@ -1,8 +1,8 @@
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/ui/BackButton';
 import { Stack, useSegments } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import { ScrollProvider, useScroll } from '../../lib/ScrollContext';
+import { ScrollProvider, useScroll } from '../../../lib/ScrollContext';
 
 function ProfileLayoutContent() {
   const segments = useSegments();
