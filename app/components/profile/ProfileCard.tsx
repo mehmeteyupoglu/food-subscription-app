@@ -1,16 +1,15 @@
 import colors from '@/colors';
 import { Sen_400Regular, Sen_700Bold, useFonts } from '@expo-google-fonts/sen';
-import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface ProfileCardProps {
-  icon: React.ReactNode;
   label: string;
   onPress: () => void;
+  imageSource: any;
 }
 
-export default function ProfileCard({ icon, label, onPress }: ProfileCardProps) {
+export default function ProfileCard({ label, onPress, imageSource }: ProfileCardProps) {
   const [fontsLoaded] = useFonts({
     Sen_400Regular,
     Sen_700Bold,
@@ -22,9 +21,14 @@ export default function ProfileCard({ icon, label, onPress }: ProfileCardProps) 
 
   return (
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
-      <View style={styles.iconCircle}>{icon}</View>
+      <View style={styles.iconCircle}>
+        <Image
+          source={imageSource}
+          style={styles.icon}
+          resizeMode="contain"
+        />
+      </View>
       <Text style={styles.cardLabel}>{label}</Text>
-      <Ionicons name="chevron-forward" size={16} color="#747783" />
     </TouchableOpacity>
   );
 }
@@ -53,5 +57,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text,
     fontFamily: 'Sen_400Regular',
+  },
+  icon: {
+    width: 14,
+    height: 14,
   },
 }); 

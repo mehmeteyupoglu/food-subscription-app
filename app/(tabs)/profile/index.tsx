@@ -1,47 +1,36 @@
 import colors from '@/colors';
 import ProfileCard from '@/components/profile/ProfileCard';
-import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import ProfileHeader from '@/components/profile/ProfileHeader';
 import { router } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 export default function ProfilePage() {
   return (
     <View style={styles.container}>
       {/* Profil üst kısmı */}
-      <View style={styles.header}>
-        <View style={styles.avatar} />
-        <View style={styles.infoStack}>
-          <Text style={styles.name}>Ahmet Yılmaz</Text>
-          <Text style={styles.phone}>543-133-58-02</Text>
-        </View>
-      </View>
+      <ProfileHeader name="Ahmet Yılmaz" phone="543-133-58-02" />
 
       {/* Kartlar */}
       <View style={styles.cardGroup}>
         <ProfileCard
-          icon={<MaterialIcons name="person-outline" size={28} color={colors.primary} />}
           label="Kişisel Bilgiler"
+          imageSource={require('../../../assets/icons/person.png')}
           onPress={() => router.push('/profile/personal-details')}
         />
         <ProfileCard
-          icon={<MaterialCommunityIcons name="clipboard-text-outline" size={28} color="#6C63FF" />}
           label="Aboneliğim"
+          imageSource={require('../../../assets/icons/menu.png')}
           onPress={() => router.push('/profile/subscription-details')}
         />
         <ProfileCard
-          icon={<Ionicons name="heart-outline" size={28} color="#C85FFC" />}
           label="İletişim"
+          imageSource={require('../../../assets/icons/heart.png')}
           onPress={() => router.push('/profile/contact-details')}
         />
-      </View>
-
-      {/* Çıkış kartı */}
-      <View style={styles.logoutGroup}>
         <ProfileCard
-          icon={<MaterialIcons name="logout" size={28} color="#FF6B6B" />}
           label="Çıkış Yap"
+          imageSource={require('../../../assets/icons/Logout.png')}
           onPress={() => router.replace('/(auth)/login')}
-          isLogout
         />
       </View>
     </View>
@@ -55,34 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 40,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    marginBottom: 0,
-    backgroundColor: colors.primary,
-    marginRight: 32,
-  },
-  infoStack: {
-    marginLeft: 20,
-    justifyContent: 'center',
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 8,
-  },
-  phone: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    marginBottom: 8,
-  },
+
   cardGroup: {
     gap: 16,
     marginBottom: 24,
