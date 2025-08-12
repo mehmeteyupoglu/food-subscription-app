@@ -1,4 +1,5 @@
 import colors from '@/colors';
+import { Sen_400Regular, Sen_700Bold, useFonts } from '@expo-google-fonts/sen';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -7,15 +8,23 @@ interface ProfileCardProps {
   icon: React.ReactNode;
   label: string;
   onPress: () => void;
-  isLogout?: boolean;
 }
 
-export default function ProfileCard({ icon, label, onPress, isLogout }: ProfileCardProps) {
+export default function ProfileCard({ icon, label, onPress }: ProfileCardProps) {
+  const [fontsLoaded] = useFonts({
+    Sen_400Regular,
+    Sen_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <TouchableOpacity style={[styles.card, isLogout && styles.logoutCard]} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
       <View style={styles.iconCircle}>{icon}</View>
-      <Text style={[styles.cardLabel, isLogout && styles.logoutLabel]}>{label}</Text>
-      <Ionicons name="chevron-forward" size={22} color={isLogout ? '#FF6B6B' : colors.textSecondary} />
+      <Text style={styles.cardLabel}>{label}</Text>
+      <Ionicons name="chevron-forward" size={16} color="#747783" />
     </TouchableOpacity>
   );
 }
@@ -24,37 +33,25 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.gray,
+    backgroundColor: colors.cardBackground,
     borderRadius: 16,
-    paddingVertical: 18,
-    paddingHorizontal: 16,
+    padding: 20,
     marginBottom: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 4,
-    elevation: 1,
+    height: 80,
   },
   iconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 14,
   },
   cardLabel: {
     flex: 1,
     fontSize: 16,
     color: colors.text,
-    fontWeight: '500',
-  },
-  logoutCard: {
-    backgroundColor: colors.gray,
-  },
-  logoutLabel: {
-    color: '#FF6B6B',
-    fontWeight: '600',
+    fontFamily: 'Sen_400Regular',
   },
 }); 
