@@ -6,25 +6,35 @@ import colors from "@/colors";
 
 interface BackButtonProps {
   onPress: () => void;
+  variant?: 'default' | 'dark';
 }
 
-export default function BackButton({ onPress }: BackButtonProps) {
+export default function BackButton({ onPress, variant = 'default' }: BackButtonProps) {
+  const isDark = variant === 'dark';
+
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={[
+        styles.button,
+        isDark && styles.shoppingCartButton
+      ]}
       onPress={onPress}
       activeOpacity={0.7}
     >
-      <Ionicons name="chevron-back" size={24} color={colors.text} />
+      <Ionicons
+        name="chevron-back"
+        size={18}
+        color={isDark ? '#FFFFFF' : colors.text}
+      />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 45,
+    height: 45,
+    borderRadius: 22.5,
     backgroundColor: colors.background,
     justifyContent: "center",
     alignItems: "center",
@@ -36,5 +46,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  shoppingCartButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // 10% opacity white background
   },
 });

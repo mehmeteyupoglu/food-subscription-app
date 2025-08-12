@@ -25,7 +25,10 @@ export default function Home() {
     personCount,
     deliveryMethod,
     selectedPlan,
+    totalPrice,
+    totalMeals,
     setSelectedMealType,
+    setPersonCount,
     setDeliveryMethod,
     setSelectedPlan,
     setTotalPrice,
@@ -100,7 +103,7 @@ export default function Home() {
   const handleContinueToCart = () => {
     console.log("Sepete devam et");
     closeSheet();
-    router.push('/views/ShoppingCart');
+    router.push('/Cart');
   };
 
   const sliderImages = [
