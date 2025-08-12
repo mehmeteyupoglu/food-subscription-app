@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import colors from "@/colors";
+import AppHeader from '@/components/home/AppHeader';
 import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
 import { subscriptionPlans } from '@/constants/meal';
@@ -114,6 +115,10 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
+      <AppHeader
+        onMenuPress={() => console.log("Menu açıldı")}
+        onCartPress={() => router.push("/views/ShoppingCart")}
+      />
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <ImageSlider images={sliderImages} height={200} />
 
