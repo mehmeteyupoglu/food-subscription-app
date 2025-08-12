@@ -42,7 +42,7 @@ function TabBarWithSafeArea() {
         }}
       >
         <Tabs.Screen
-          name="home"
+          name="home/index"
           options={{
             title: "Ana Sayfa",
             tabBarIcon: ({ color, size }) => (
@@ -55,7 +55,7 @@ function TabBarWithSafeArea() {
           }}
         />
         <Tabs.Screen
-          name="menu"
+          name="menu/index"
           options={{
             title: "Menü",
             tabBarIcon: ({ color, size }) => (
