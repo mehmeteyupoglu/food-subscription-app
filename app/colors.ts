@@ -9,6 +9,7 @@ const colors = {
   border: "#E5E5E5",
   text: "#32343E",
   textSecondary: "#A0A5BA",
+  cardTextSecondary: "#6B6E82",
 } as const;
 
 export default colors;
