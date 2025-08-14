@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   inputContainer: {
+    marginBottom: 24,
     backgroundColor: colors.inputBackground,
     borderRadius: 12,
     paddingHorizontal: 12,

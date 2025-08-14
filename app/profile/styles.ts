@@ -26,6 +26,5 @@ export const profileStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 100,
-    gap: 20,
   },
 }); 
