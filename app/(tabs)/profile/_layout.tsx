@@ -1,26 +1,14 @@
+import colors from '@/colors';
 import BackButton from '@/components/ui/BackButton';
 import { Stack, useSegments } from 'expo-router';
-import { useEffect, useRef } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
-import { ScrollProvider, useScroll } from '../../../lib/ScrollContext';
+import { StyleSheet, Text, View } from 'react-native';
 
 function ProfileLayoutContent() {
   const segments = useSegments();
   const currentRoute = segments[segments.length - 1];
-  const { scrollY } = useScroll ? useScroll() : { scrollY: 0 };
-  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   // Sadece alt sayfalarda geri butonu göster
   const showBackButton = currentRoute !== 'profile';
-
-  useEffect(() => {
-    const shouldShow = scrollY > 100;
-    Animated.timing(fadeAnim, {
-      toValue: shouldShow ? 0 : 1,
-      duration: 50,
-      useNativeDriver: true,
-    }).start();
-  }, [scrollY, fadeAnim]);
 
   const handleBackPress = () => {
     require('expo-router').router.back();
@@ -29,9 +17,14 @@ function ProfileLayoutContent() {
   return (
     <View style={styles.container}>
       {showBackButton && (
-        <Animated.View style={[styles.backButtonContainer, { opacity: fadeAnim }]}>
+        <View style={styles.header}>
           <BackButton onPress={handleBackPress} />
-        </Animated.View>
+          <Text style={styles.title}>
+            {currentRoute === 'contact-details' && 'İletişim'}
+            {currentRoute === 'personal-details' && 'Kişisel Bilgiler'}
+            {currentRoute === 'subscription-details' && 'Aboneliğim'}
+          </Text>
+        </View>
       )}
       <Stack
         screenOptions={{
@@ -45,11 +38,7 @@ function ProfileLayoutContent() {
 }
 
 export default function ProfileLayout() {
-  return (
-    <ScrollProvider>
-      <ProfileLayoutContent />
-    </ScrollProvider>
-  );
+  return <ProfileLayoutContent />;
 }
 
 const styles = StyleSheet.create({
@@ -57,10 +46,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
   },
-  backButtonContainer: {
+  header: {
     position: 'absolute',
-    top: 60,
+    top: 30,
     left: 24,
     zIndex: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 16,
+    fontFamily: 'Sen_400Regular',
+    color: colors.text,
+    marginLeft: 16,
   },
 });

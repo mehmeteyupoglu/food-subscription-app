@@ -23,7 +23,7 @@ export default function ContactInfoCard({
   }
 
   return (
-    <View style={styles.section}>
+    <View>
       <Text style={styles.sectionLabel}>{sectionTitle}</Text>
       <View style={styles.contentBox}>
         {cardTitle && (
@@ -36,9 +36,7 @@ export default function ContactInfoCard({
 }
 
 const styles = StyleSheet.create({
-  section: {
-    marginBottom: 32,
-  },
+
   sectionLabel: {
     fontSize: 14,
     fontFamily: 'Sen_400Regular',
