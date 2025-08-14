@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 24,
+    marginBottom: 24,
   },
   primaryButton: {
     backgroundColor: colors.primary,
