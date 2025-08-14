@@ -5,6 +5,7 @@ export const profileStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingTop: 20,
   },
   backButton: {
     width: 40,

@@ -1,6 +1,7 @@
 import ContactInfoCard from "@/components/ContactInfoCard";
 import ProfileCard from "@/components/profile/ProfileCard";
 import CustomButton from "@/components/ui/inputs/CustomButton";
+import CustomTextInput from "@/components/ui/inputs/CustomTextInput";
 import { BUSINESS_INFO } from "@/constants/business";
 import { StyleSheet, View } from "react-native";
 import { profileStyles } from './styles';
@@ -11,6 +12,13 @@ export default function PersonalDetails() {
       <View style={profileStyles.content}>
         {/* Orange Circle */}
         <View style={styles.avatar} />
+
+        <CustomTextInput
+          label="AD"
+          placeholder="Adınızı girin"
+          value="Kerem"
+          onChangeText={() => { }}
+        />
 
         <ContactInfoCard
           sectionTitle="AD"
@@ -32,7 +40,7 @@ export default function PersonalDetails() {
         <ProfileCard
           label="Şifreyi Değiştir"
           onPress={() => { }}
-          imageSource={require('../../../assets/icons/lock.png')}
+          imageSource={require('../../assets/icons/lock.png')}
         />
 
       </View>
