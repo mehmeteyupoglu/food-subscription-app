@@ -58,7 +58,7 @@ export default function Login() {
       // TODO: Implement actual login logic with API
       console.log("Login data:", formData);
       // Navigate to home page after successful login
-      router.replace("/(home)/Home");
+      router.replace("/(tabs)/home");
     }
   };
 

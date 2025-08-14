@@ -5,6 +5,7 @@ const colors = {
   error: "#FF3B30",
   gray: "#F5F5F5",
   inputBackground: "#F5F5F5",
+  cardBackground: "#F6F8FA",
   border: "#E5E5E5",
   text: "#32343E",
   textSecondary: "#A0A5BA",

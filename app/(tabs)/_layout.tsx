@@ -4,7 +4,6 @@ import { Tabs, useRouter } from "expo-router";
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import colors from "@/colors";
-import AppHeader from "@/components/home/AppHeader";
 import { Image } from "react-native";
 
 function TabBarWithSafeArea() {
@@ -13,10 +12,6 @@ function TabBarWithSafeArea() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppHeader
-        onMenuPress={() => console.log("Menu açıldı")}
-        onCartPress={() => router.push("/Cart")}
-      />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: colors.primary,
@@ -47,7 +42,7 @@ function TabBarWithSafeArea() {
         }}
       >
         <Tabs.Screen
-          name="Home"
+          name="home/index"
           options={{
             title: "Ana Sayfa",
             tabBarIcon: ({ color, size }) => (
@@ -60,7 +55,7 @@ function TabBarWithSafeArea() {
           }}
         />
         <Tabs.Screen
-          name="Menu"
+          name="menu/index"
           options={{
             title: "Menü",
             tabBarIcon: ({ color, size }) => (
@@ -73,7 +68,7 @@ function TabBarWithSafeArea() {
           }}
         />
         <Tabs.Screen
-          name="Profile"
+          name="profile"
           options={{
             title: "Profil",
             tabBarIcon: ({ color, size }) => (
