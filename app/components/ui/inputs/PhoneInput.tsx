@@ -1,3 +1,4 @@
+import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
 import { useState } from "react";
 import type { TextInputProps as RNTextInputProps } from "react-native";
 import { TextInput as RNTextInput, StyleSheet, Text, View } from "react-native";
@@ -129,6 +130,10 @@ export default function PhoneInput({
   onChangeText,
   ...props
 }: PhoneInputProps) {
+  const [fontsLoaded] = useFonts({
+    Sen_400Regular,
+  });
+
   const [displayValue, setDisplayValue] = useState(formatPhoneNumber(value));
 
   const handleChangeText = (text: string) => {
@@ -141,8 +146,12 @@ export default function PhoneInput({
     onChangeText(cleanNumber);
   };
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.label}>{label}</Text>
       <View style={[styles.inputContainer, error && styles.inputError]}>
         <RNTextInput
@@ -161,29 +170,25 @@ export default function PhoneInput({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
   label: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: colors.textSecondary,
+    fontSize: 14,
+    fontFamily: 'Sen_400Regular',
+    color: colors.text,
     marginBottom: 8,
-    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   inputContainer: {
     backgroundColor: colors.inputBackground,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "transparent",
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 20,
     minHeight: 56,
     justifyContent: "center",
   },
   input: {
-    fontSize: 16,
-    color: colors.text,
-    paddingVertical: 16,
+    fontSize: 14,
+    fontFamily: 'Sen_400Regular',
+    color: colors.cardTextSecondary,
   },
   inputError: {
     borderColor: colors.error,

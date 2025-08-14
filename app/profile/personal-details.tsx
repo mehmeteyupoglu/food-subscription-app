@@ -1,8 +1,7 @@
-import ContactInfoCard from "@/components/ContactInfoCard";
 import ProfileCard from "@/components/profile/ProfileCard";
 import CustomButton from "@/components/ui/inputs/CustomButton";
 import CustomTextInput from "@/components/ui/inputs/CustomTextInput";
-import { BUSINESS_INFO } from "@/constants/business";
+import PhoneInput from "@/components/ui/inputs/PhoneInput";
 import { StyleSheet, View } from "react-native";
 import { profileStyles } from './styles';
 
@@ -20,17 +19,18 @@ export default function PersonalDetails() {
           onChangeText={() => { }}
         />
 
-        <ContactInfoCard
-          sectionTitle="AD"
-          cardDescription='Kerem'
+        <CustomTextInput
+          label="SOYAD"
+          placeholder="Adınızı girin"
+          value="Eyüpoğlu"
+          onChangeText={() => { }}
         />
-        <ContactInfoCard
-          sectionTitle="SOYAD"
-          cardDescription='Eyüpoğlu'
-        />
-        <ContactInfoCard
-          sectionTitle="CEP TELEFONU"
-          cardDescription={BUSINESS_INFO.whatsapp}
+
+        <PhoneInput
+          label="CEP TELEFONU"
+          placeholder="Telefon numaranızı girin"
+          value="505 123 45 67"
+          onChangeText={() => { }}
         />
         <CustomButton
           title="KAYDET"
