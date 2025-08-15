@@ -1,12 +1,13 @@
 import { Sen_400Regular, Sen_700Bold, useFonts } from '@expo-google-fonts/sen';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import colors from "@/colors";
 import BackButton from "@/components/ui/BackButton";
 import CustomButton from "@/components/ui/inputs/CustomButton";
+import StartDateInfoModal from "@/components/ui/StartDateInfoModal";
 import { baseMealPrice, deliveryOptions, mealTypes, subscriptionPlans } from '@/constants/meal';
 import { SubscriptionPayload } from '@/types/cart';
 import { calculateDiscountAmount } from '@/utils/calculateDiscountAmount';
@@ -41,6 +42,7 @@ const CART_DATA = {
 
 
 export default function ShoppingCart() {
+  const [showStartDateModal, setShowStartDateModal] = useState(false);
 
   const {
     selectedMealType,
@@ -120,6 +122,18 @@ export default function ShoppingCart() {
     console.log('Subscription Payload:', subscriptionPayload);
     // Navigate to payment successful screen
     router.push('/(cart)/payment-successful');
+  };
+
+  const handleInfoPress = () => {
+    setShowStartDateModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowStartDateModal(false);
+  };
+
+  const handleModalConfirm = () => {
+    setShowStartDateModal(false);
   };
 
   if (!fontsLoaded) {
@@ -214,9 +228,9 @@ export default function ShoppingCart() {
         <Text style={styles.cardTitle}>ABONELİK BAŞLANGIÇ TARİHİ</Text>
         <View style={styles.subContainer}>
           <View style={styles.infoRow}>
-            <View style={styles.infoIcon}>
+            <TouchableOpacity style={styles.infoIcon} onPress={handleInfoPress}>
               <Image source={require("../../assets/icons/info.png")} style={{ width: 35, height: 35 }} />
-            </View>
+            </TouchableOpacity>
             <View style={styles.infoContent}>
               <Text style={styles.infoDate}>{CART_DATA.subscription.startDate}</Text>
               <Text style={styles.infoInstruction}>{CART_DATA.subscription.instruction}</Text>
@@ -240,6 +254,13 @@ export default function ShoppingCart() {
           variant="primary"
         />
       </View>
+
+      {/* Start Date Info Modal */}
+      <StartDateInfoModal
+        visible={showStartDateModal}
+        onClose={handleModalClose}
+        onConfirm={handleModalConfirm}
+      />
     </View>
   );
 }
