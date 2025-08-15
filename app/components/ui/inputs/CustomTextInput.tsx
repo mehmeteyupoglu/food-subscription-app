@@ -39,7 +39,7 @@ export default function CustomTextInput({
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={[styles.inputContainer, error && styles.inputError]}>
         <RNTextInput
@@ -68,6 +68,9 @@ export default function CustomTextInput({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: 24,
+  },
   label: {
     fontSize: 14,
     fontFamily: 'Sen_400Regular',
@@ -83,7 +86,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 20,
     minHeight: 56,
-    marginBottom: 24,
   },
   input: {
     flex: 1,
