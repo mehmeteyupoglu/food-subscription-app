@@ -21,6 +21,7 @@ function ProfileStackLayout() {
           {currentRoute === 'contact-details' && 'İletişim'}
           {currentRoute === 'personal-details' && 'Kişisel Bilgiler'}
           {currentRoute === 'subscription-details' && 'Aboneliğim'}
+          {currentRoute === 'change-password' && 'Şifre Değiştir'}
         </Text>
       </View>
 

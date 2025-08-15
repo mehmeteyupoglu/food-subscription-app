@@ -2,6 +2,7 @@ import ProfileCard from "@/components/profile/ProfileCard";
 import CustomButton from "@/components/ui/inputs/CustomButton";
 import CustomTextInput from "@/components/ui/inputs/CustomTextInput";
 import PhoneInput from "@/components/ui/inputs/PhoneInput";
+import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import { profileStyles } from './styles';
 
@@ -36,10 +37,9 @@ export default function PersonalDetails() {
           title="KAYDET"
           onPress={() => { }}
         />
-
         <ProfileCard
           label="Şifreyi Değiştir"
-          onPress={() => { }}
+          onPress={() => router.push('/profile/change-password')}
           imageSource={require('../../assets/icons/lock.png')}
         />
 
