@@ -8,6 +8,13 @@ function ProfileStackLayout() {
   const segments = useSegments();
   const currentRoute = segments[segments.length - 1];
 
+  const routeTitles: Record<string, string> = {
+    'contact-details': 'İletişim',
+    'personal-details': 'Kişisel Bilgiler',
+    'subscription-details': 'Aboneliğim',
+    'change-password': 'Şifre Değiştir',
+  };
+
   const handleBackPress = () => {
     require('expo-router').router.push('/(tabs)/profile');
   };
@@ -18,10 +25,7 @@ function ProfileStackLayout() {
       <View style={styles.header}>
         <BackButton onPress={handleBackPress} />
         <Text style={styles.title}>
-          {currentRoute === 'contact-details' && 'İletişim'}
-          {currentRoute === 'personal-details' && 'Kişisel Bilgiler'}
-          {currentRoute === 'subscription-details' && 'Aboneliğim'}
-          {currentRoute === 'change-password' && 'Şifre Değiştir'}
+          {routeTitles[currentRoute] || ''}
         </Text>
       </View>
 
