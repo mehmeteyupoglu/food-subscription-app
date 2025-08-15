@@ -1,37 +1,26 @@
 import colors from '@/colors';
 import ProfileCard from '@/components/profile/ProfileCard';
 import ProfileHeader from '@/components/profile/ProfileHeader';
-import { router } from 'expo-router';
+import profileConstants from '@/constants/profile';
 import { StyleSheet, View } from 'react-native';
 
 export default function ProfilePage() {
   return (
     <View style={styles.container}>
-      {/* Profil üst kısmı */}
+      {/* TODO: Profile information should be fetched from the backend and displayed here */}
       <ProfileHeader name="Ahmet Yılmaz" phone="543-133-58-02" />
 
       {/* Kartlar */}
       <View style={styles.cardGroup}>
-        <ProfileCard
-          label="Kişisel Bilgiler"
-          imageSource={require('../../../assets/icons/person.png')}
-          onPress={() => router.push('/profile/personal-details')}
-        />
-        <ProfileCard
-          label="Aboneliğim"
-          imageSource={require('../../../assets/icons/subscription.png')}
-          onPress={() => router.push('/profile/subscription-details')}
-        />
-        <ProfileCard
-          label="İletişim"
-          imageSource={require('../../../assets/icons/heart.png')}
-          onPress={() => router.push('/profile/contact-details')}
-        />
-        <ProfileCard
-          label="Çıkış Yap"
-          imageSource={require('../../../assets/icons/Logout.png')}
-          onPress={() => router.replace('/(auth)/login')}
-        />
+        {profileConstants.profileMenuItems.map((item, index) => (
+          <ProfileCard
+            key={index}
+            label={item.label}
+            imageSource={item.imageSource}
+            onPress={item.onPress}
+          />
+        ))}
+
       </View>
     </View>
   );
