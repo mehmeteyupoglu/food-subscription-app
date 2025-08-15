@@ -118,7 +118,8 @@ export default function ShoppingCart() {
     };
 
     console.log('Subscription Payload:', subscriptionPayload);
-    // Navigate to confirmation or payment page
+    // Navigate to payment successful screen
+    router.push('/(cart)/payment-successful');
   };
 
   if (!fontsLoaded) {
