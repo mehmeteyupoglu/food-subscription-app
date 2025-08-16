@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { useBottomSheet } from '../../lib/BottomSheetContext';
 import MealCustomizationSheet from './home/MealCustomizationSheet';
@@ -25,6 +26,7 @@ export default function GlobalBottomSheet() {
   const handleContinueToCart = () => {
     closeSheet();
     // Navigation will be handled by the calling component
+    router.push('/(cart)/Cart');
   };
 
   return (

@@ -66,7 +66,7 @@ export default function PlanCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#F6F8FA",
+    backgroundColor: colors.cardBackground,
     borderRadius: 16,
     marginVertical: 6,
     // shadowColor: "#000",

@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 
+import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
 import { Ionicons } from "@expo/vector-icons";
 
 import colors from "@/colors";
@@ -23,11 +24,19 @@ export default function CustomTextInput({
   secureTextEntry,
   ...props
 }: CustomTextInputProps) {
+  const [fontsLoaded] = useFonts({
+    Sen_400Regular,
+  });
+
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
   const toggleSecureEntry = () => {
     setIsSecure(!isSecure);
   };
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>
@@ -60,30 +69,29 @@ export default function CustomTextInput({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    marginBottom: 24,
   },
   label: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: colors.textSecondary,
+    fontSize: 14,
+    fontFamily: 'Sen_400Regular',
+    color: colors.text,
     marginBottom: 8,
-    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.inputBackground,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "transparent",
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 20,
     minHeight: 56,
   },
   input: {
     flex: 1,
-    fontSize: 16,
-    color: colors.text,
-    paddingVertical: 16,
+    fontSize: 14,
+    fontFamily: 'Sen_400Regular',
+    color: colors.cardTextSecondary,
   },
   inputError: {
     borderColor: colors.error,

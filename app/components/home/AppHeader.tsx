@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 22,
-    backgroundColor: '#F6F8FA',
+    backgroundColor: colors.cardBackground,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
