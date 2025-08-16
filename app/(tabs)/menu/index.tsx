@@ -1,5 +1,6 @@
 import { Sen_400Regular, Sen_700Bold } from "@expo-google-fonts/sen";
 import { useFonts } from "expo-font";
+import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -14,8 +15,7 @@ export default function Menu() {
   });
 
   const handleMenuPress = () => {
-    // TODO: Implement menu navigation logic
-    console.log("Menu button pressed");
+    router.push("/menu/meals");
   };
 
   if (!fontsLoaded) {
