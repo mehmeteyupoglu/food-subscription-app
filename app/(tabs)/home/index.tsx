@@ -103,7 +103,7 @@ export default function Home() {
   const handleContinueToCart = () => {
     console.log("Sepete devam et");
     closeSheet();
-    router.push('/Cart');
+    router.push('/(cart)/Cart');
   };
 
   const sliderImages = [
@@ -120,7 +120,7 @@ export default function Home() {
     <View style={styles.container}>
       <AppHeader
         onMenuPress={() => console.log("Menu açıldı")}
-        onCartPress={() => router.push("/views/ShoppingCart")}
+        onCartPress={() => router.push("/(cart)/Cart")}
       />
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <ImageSlider images={sliderImages} height={200} />

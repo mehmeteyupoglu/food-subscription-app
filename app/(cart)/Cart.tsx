@@ -64,6 +64,13 @@ export default function ShoppingCart() {
     closeSheet
   } = useBottomSheet();
 
+  // Check if plan is selected, if not redirect to empty cart
+  React.useEffect(() => {
+    if (!selectedPlan) {
+      router.replace('/(cart)/empty-cart');
+    }
+  }, [selectedPlan]);
+
   const [fontsLoaded] = useFonts({
     Sen_400Regular,
     Sen_700Bold,
@@ -137,6 +144,11 @@ export default function ShoppingCart() {
   };
 
   if (!fontsLoaded) {
+    return null;
+  }
+
+  // Show loading while checking plan selection
+  if (!selectedPlan) {
     return null;
   }
 
