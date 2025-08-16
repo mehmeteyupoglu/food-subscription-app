@@ -43,6 +43,7 @@ const CART_DATA = {
 
 export default function ShoppingCart() {
   const [showStartDateModal, setShowStartDateModal] = useState(false);
+  const [modalVariant, setModalVariant] = useState<'info' | 'confirmation'>('info');
 
   const {
     selectedMealType,
@@ -92,46 +93,16 @@ export default function ShoppingCart() {
     }
   };
 
-  const handleConfirm = () => {
-    // Create subscription payload from bottom sheet context
-    const subscriptionPayload: SubscriptionPayload = {
-      // Temel bilgiler
-      mealType: selectedMealType || '',
-      subscriptionPlan: selectedPlan || '',
-      personCount: parseInt(personCount) || 1,
-      days: [], // TODO: Calculate actual days based on subscription plan
-      startDate: new Date(), // TODO: Get actual start date
-      endDate: new Date(), // TODO: Calculate end date based on plan duration
-      deliveryMethod: deliveryMethod || '',
-      branch: 'BİTAT CAFE & RESTAURANT', // TODO: Get from context or selection
 
-      // Fiyat bilgileri
-      totalPrice: totalPrice || 0,
-      discountedPrice: discountedMealPrice || 0,
-      totalDiscount: (baseMealPrice - (discountedMealPrice || 0)) || 0,
-
-      // Müşteri bilgileri
-      customerInfo: {
-        name: '', // TODO: Get from user profile
-        phone: '', // TODO: Get from user profile
-        email: '', // TODO: Get from user profile
-        address: '', // TODO: Get from user profile
-      },
-
-      // Ek bilgiler
-      specialInstructions: '',
-      paymentMethod: 'credit_card', // TODO: Get from payment selection
-      status: 'active',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    console.log('Subscription Payload:', subscriptionPayload);
-    // Navigate to payment successful screen
-    router.push('/(cart)/payment-successful');
-  };
 
   const handleInfoPress = () => {
+    setModalVariant('info');
+    setShowStartDateModal(true);
+  };
+
+  const handleConfirm = () => {
+    // Show confirmation modal first
+    setModalVariant('confirmation');
     setShowStartDateModal(true);
   };
 
@@ -141,6 +112,45 @@ export default function ShoppingCart() {
 
   const handleModalConfirm = () => {
     setShowStartDateModal(false);
+    // If it was confirmation modal, proceed to payment successful
+    if (modalVariant === 'confirmation') {
+      // Create subscription payload from bottom sheet context
+      const subscriptionPayload: SubscriptionPayload = {
+        // Temel bilgiler
+        mealType: selectedMealType || '',
+        subscriptionPlan: selectedPlan || '',
+        personCount: parseInt(personCount) || 1,
+        days: [], // TODO: Calculate actual days based on subscription plan
+        startDate: new Date(), // TODO: Get actual start date
+        endDate: new Date(), // TODO: Calculate end date based on plan duration
+        deliveryMethod: deliveryMethod || '',
+        branch: 'BİTAT CAFE & RESTAURANT', // TODO: Get from context or selection
+
+        // Fiyat bilgileri
+        totalPrice: totalPrice || 0,
+        discountedPrice: discountedMealPrice || 0,
+        totalDiscount: (baseMealPrice - (discountedMealPrice || 0)) || 0,
+
+        // Müşteri bilgileri
+        customerInfo: {
+          name: '', // TODO: Get from user profile
+          phone: '', // TODO: Get from user profile
+          email: '', // TODO: Get from user profile
+          address: '', // TODO: Get from user profile
+        },
+
+        // Ek bilgiler
+        specialInstructions: '',
+        paymentMethod: 'credit_card', // TODO: Get from payment selection
+        status: 'active',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      console.log('Subscription Payload:', subscriptionPayload);
+      // Navigate to payment successful screen
+      router.push('/(cart)/payment-successful');
+    }
   };
 
   if (!fontsLoaded) {
@@ -272,6 +282,7 @@ export default function ShoppingCart() {
         visible={showStartDateModal}
         onClose={handleModalClose}
         onConfirm={handleModalConfirm}
+        variant={modalVariant}
       />
     </View>
   );

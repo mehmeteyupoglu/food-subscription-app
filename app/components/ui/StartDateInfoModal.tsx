@@ -6,9 +6,10 @@ interface StartDateInfoModalProps {
   visible: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  variant?: 'info' | 'confirmation'; // 'info' for single button, 'confirmation' for two buttons
 }
 
-export default function StartDateInfoModal({ visible, onClose, onConfirm }: StartDateInfoModalProps) {
+export default function StartDateInfoModal({ visible, onClose, onConfirm, variant = 'info' }: StartDateInfoModalProps) {
   return (
     <Modal
       visible={visible}
@@ -36,12 +37,22 @@ export default function StartDateInfoModal({ visible, onClose, onConfirm }: Star
 
           {/* Action Buttons */}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
-              <Text style={styles.cancelButtonText}>İptal</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
-              <Text style={styles.confirmButtonText}>Tamam</Text>
-            </TouchableOpacity>
+            {variant === 'confirmation' ? (
+              // Two buttons for confirmation variant
+              <>
+                <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
+                  <Text style={styles.cancelButtonText}>İptal</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
+                  <Text style={styles.confirmButtonText}>Tamam</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              // Single button for info variant
+              <TouchableOpacity style={styles.singleButton} onPress={onConfirm}>
+                <Text style={styles.singleButtonText}>Tamam</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
@@ -115,5 +126,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Sen_400Regular',
     color: colors.primary,
+  },
+  singleButton: {
+    flex: 1,
+    backgroundColor: colors.primary,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  singleButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    fontFamily: 'Sen_400Regular',
+    color: colors.background,
   },
 });
