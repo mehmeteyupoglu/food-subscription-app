@@ -7,9 +7,10 @@ interface ProfileCardProps {
   label: string;
   onPress: () => void;
   imageSource: any;
+  iconSize?: number;
 }
 
-export default function ProfileCard({ label, onPress, imageSource }: ProfileCardProps) {
+export default function ProfileCard({ label, onPress, imageSource, iconSize = 14 }: ProfileCardProps) {
   const [fontsLoaded] = useFonts({
     Sen_400Regular,
     Sen_700Bold,
@@ -24,7 +25,7 @@ export default function ProfileCard({ label, onPress, imageSource }: ProfileCard
       <View style={styles.iconCircle}>
         <Image
           source={imageSource}
-          style={styles.icon}
+          style={{ width: iconSize, height: iconSize }}
           resizeMode="contain"
         />
       </View>
@@ -62,10 +63,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text,
     fontFamily: 'Sen_400Regular',
-  },
-  icon: {
-    width: 14,
-    // height: 14,
   },
   rightIcon: {
     height: 10,
