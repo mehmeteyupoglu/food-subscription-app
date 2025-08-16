@@ -3,17 +3,17 @@ import { Sen_400Regular, useFonts } from '@expo-google-fonts/sen';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-interface ContactInfoCardProps {
+interface InfoCardProps {
   sectionTitle: string;
   cardTitle?: string;
   cardDescription: string;
 }
 
-export default function ContactInfoCard({
+export default function InfoCard({
   sectionTitle,
   cardTitle,
   cardDescription,
-}: ContactInfoCardProps) {
+}: InfoCardProps) {
   const [fontsLoaded] = useFonts({
     Sen_400Regular,
   });

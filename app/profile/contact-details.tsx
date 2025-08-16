@@ -1,4 +1,4 @@
-import ContactInfoCard from '@/components/ContactInfoCard';
+import InfoCard from '@/components/InfoCard';
 import { BUSINESS_INFO } from '@/constants/business';
 import React from 'react';
 import { View } from 'react-native';
@@ -8,16 +8,16 @@ export default function ContactDetails() {
   return (
     <View style={profileStyles.container}>
       <View style={profileStyles.content}>
-        <ContactInfoCard
+        <InfoCard
           sectionTitle="ŞUBE ADRESİ"
           cardTitle={BUSINESS_INFO.name}
           cardDescription={BUSINESS_INFO.address}
         />
-        <ContactInfoCard
+        <InfoCard
           sectionTitle="SABİT TELEFONU"
           cardDescription={BUSINESS_INFO.fixedPhone}
         />
-        <ContactInfoCard
+        <InfoCard
           sectionTitle="WHATSAPP"
           cardDescription={BUSINESS_INFO.whatsapp}
         />
