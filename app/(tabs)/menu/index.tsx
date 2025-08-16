@@ -13,6 +13,11 @@ export default function Menu() {
     Sen_700Bold,
   });
 
+  const handleMenuPress = () => {
+    // TODO: Implement menu navigation logic
+    console.log("Menu button pressed");
+  };
+
   if (!fontsLoaded) {
     return null;
   }
@@ -22,11 +27,15 @@ export default function Menu() {
       <MenuBanner />
       <View style={styles.content}>
         <Text style={styles.title}>Sağlıklı Ev Yemekleri Menü</Text>
-        <Text style={styles.subtitle}>Ev yemeği lezzetinden vazgeçemeyenler için Ev Yemekleri Paketi ile tanışın! Geleneksel tatlar, özenle hazırlanmış menüler ve sıcacık ev lezzetleriyle sofranızı şenlendirin! 🍲✨</Text>
+        <Text style={styles.subtitle}>
+          Ev yemeği lezzetinden vazgeçemeyenler için Ev Yemekleri Paketi ile tanışın!
+          Geleneksel tatlar, özenle hazırlanmış menüler ve sıcacık ev lezzetleriyle
+          sofranızı şenlendirin! 🍲✨
+        </Text>
       </View>
       <ProfileCard
         label="Menüyü Görüntüle"
-        onPress={() => { }}
+        onPress={handleMenuPress}
         imageSource={require("../../../assets/icons/download.png")}
         iconSize={24}
       />
@@ -39,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     paddingHorizontal: 20,
-    marginTop: 50,
+    paddingTop: 60,
     gap: 24,
   },
   content: {
@@ -49,12 +58,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Sen_700Bold",
     color: colors.text,
-    marginBottom: 4,
   },
   subtitle: {
     fontSize: 14,
     fontFamily: "Sen_400Regular",
     color: colors.textSecondary,
     marginBottom: 8,
+    lineHeight: 24,
   },
 });
