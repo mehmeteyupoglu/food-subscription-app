@@ -44,6 +44,7 @@ const CART_DATA = {
 export default function ShoppingCart() {
   const [showStartDateModal, setShowStartDateModal] = useState(false);
   const [modalVariant, setModalVariant] = useState<'info' | 'confirmation'>('info');
+  const [isNavigatingToPayment, setIsNavigatingToPayment] = useState(false);
 
   const {
     selectedMealType,
@@ -67,10 +68,10 @@ export default function ShoppingCart() {
 
   // Check if plan is selected, if not redirect to empty cart
   React.useEffect(() => {
-    if (!selectedPlan) {
+    if (!selectedPlan && !isNavigatingToPayment) {
       router.replace('/(cart)/empty-cart');
     }
-  }, [selectedPlan]);
+  }, [selectedPlan, isNavigatingToPayment]);
 
   const [fontsLoaded] = useFonts({
     Sen_400Regular,
@@ -148,6 +149,10 @@ export default function ShoppingCart() {
       };
 
       console.log('Subscription Payload:', subscriptionPayload);
+
+      // Set flag to prevent redirect to empty cart
+      setIsNavigatingToPayment(true);
+
       // Navigate to payment successful screen
       router.push('/(cart)/payment-successful');
     }

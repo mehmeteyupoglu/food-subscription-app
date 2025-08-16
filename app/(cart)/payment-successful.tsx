@@ -1,10 +1,34 @@
 import colors from '@/colors';
 import CustomButton from '@/components/ui/inputs/CustomButton';
 import { router } from 'expo-router';
-import React from 'react';
+import { useBottomSheet } from 'lib/BottomSheetContext';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function PaymentSuccessful() {
+  const {
+    setSelectedPlan,
+    setSelectedMealType,
+    setPersonCount,
+    setDeliveryMethod,
+    setTotalPrice,
+    setTotalMeals,
+    setTotalDiscount,
+    setDiscountedMealPrice,
+  } = useBottomSheet();
+
+  // Reset cart state when component mounts
+  useEffect(() => {
+    setSelectedPlan('');
+    setSelectedMealType('lunch');
+    setPersonCount('1');
+    setDeliveryMethod('take_away');
+    setTotalPrice(0);
+    setTotalMeals(0);
+    setTotalDiscount(0);
+    setDiscountedMealPrice(0);
+  }, []);
+
   const handleGoHome = () => {
     router.replace('/(tabs)/home');
   };
