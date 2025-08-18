@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import colors from "@/colors";
 import MenuItem from "@/components/menu/MenuItem";
 import BackButton from "@/components/ui/BackButton";
-import { getAllWeeks } from "@/constants/monthlyMenu";
+import { getAllWeeks } from "@/utils/menu";
 
 export default function MealsPage() {
   const handleGoBack = () => {

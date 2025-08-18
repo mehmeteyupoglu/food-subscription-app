@@ -1,15 +1,7 @@
-export interface MenuItem {
-  id: string;
-  dayTitle: string; // "4 Ağustos, Pazartesi"
-  mealTitle: string; // "Mercimek çorbası, kuru fasulye, pilav, cacık"
-}
+import { WeekMenu } from "@/types/menu";
 
-export interface WeekMenu {
-  weekTitle: string; // "4-10 Ağustos"
-  days: MenuItem[];
-}
-
-export const septemberMenu: WeekMenu[] = [
+// Mock data: Will be replaced by API response later
+export const monthlyMenu: WeekMenu[] = [
   {
     weekTitle: "2-8 Eylül",
     days: [
@@ -162,26 +154,4 @@ export const septemberMenu: WeekMenu[] = [
   },
 ];
 
-// Helper function to get current week menu
-export const getCurrentWeekMenu = (): WeekMenu | null => {
-  const today = new Date();
-  const currentWeek = septemberMenu.find((week) => {
-    // This is a simplified logic - you might want to implement more sophisticated date matching
-    return week.days.some((day) => {
-      const dayDate = new Date(day.dayTitle.split(',')[0] + ' 2024');
-      return dayDate.getTime() === today.getTime();
-    });
-  });
 
-  return currentWeek || null;
-};
-
-// Helper function to get menu by week index
-export const getWeekMenu = (weekIndex: number): WeekMenu | null => {
-  return septemberMenu[weekIndex] || null;
-};
-
-// Helper function to get all weeks
-export const getAllWeeks = (): WeekMenu[] => {
-  return septemberMenu;
-};
