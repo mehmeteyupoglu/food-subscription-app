@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 24,
+    marginBottom: 24,
   },
   primaryButton: {
     backgroundColor: colors.primary,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: "600",
+    fontFamily: "Sen_700Bold",
   },
   primaryText: {
     color: colors.background,

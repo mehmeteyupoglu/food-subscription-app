@@ -8,11 +8,12 @@ import {
 } from "react-native";
 
 import colors from "@/colors";
+import AppHeader from '@/components/home/AppHeader';
 import ImageSlider from "@/components/home/ImageSlider";
 import PlanCard from "@/components/home/PlanCard";
 import { baseMealPrice, subscriptionPlans } from '@/constants/meal';
 import { router } from 'expo-router';
-import { useBottomSheet } from '../../lib/BottomSheetContext';
+import { useBottomSheet } from 'lib/BottomSheetContext';
 
 export default function Home() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +25,10 @@ export default function Home() {
     personCount,
     deliveryMethod,
     selectedPlan,
+    totalPrice,
+    totalMeals,
     setSelectedMealType,
+    setPersonCount,
     setDeliveryMethod,
     setSelectedPlan,
     setTotalPrice,
@@ -99,7 +103,7 @@ export default function Home() {
   const handleContinueToCart = () => {
     console.log("Sepete devam et");
     closeSheet();
-    router.push('/views/ShoppingCart');
+    router.push('/(cart)/Cart');
   };
 
   const sliderImages = [
@@ -114,6 +118,10 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
+      <AppHeader
+        onMenuPress={() => console.log("Menu açıldı")}
+        onCartPress={() => router.push("/(cart)/Cart")}
+      />
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <ImageSlider images={sliderImages} height={200} />
 
@@ -127,7 +135,7 @@ export default function Home() {
                 .map((plan) => (
                   <PlanCard
                     key={plan.value}
-                    imageSource={require("../../assets/manti.png")}
+                    imageSource={require("../../../assets/manti.png")}
                     title={plan.label}
                     subTitle="Sağlıklı Ev Yemekleri"
                     duration={plan.duration.toString() + " Gün"}
