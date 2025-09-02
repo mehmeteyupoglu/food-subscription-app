@@ -13,6 +13,7 @@ import {
 import colors from '@/colors';
 import Dropdown from '@/components/ui/Dropdown';
 import { deliveryOptions, mealTypes } from '@/constants/meal';
+import { calculateGroupDiscount } from '@/utils/calculateGroupDiscount';
 import { getPlanDisplayText } from '@/utils/planUtils';
 import ToggleButton from './ToggleButton';
 
@@ -58,7 +59,6 @@ export default function MealCustomizationSheet({
     ),
     []
   );
-
 
 
   if (!fontsLoaded) {
@@ -115,6 +115,11 @@ export default function MealCustomizationSheet({
               placeholder="1"
               placeholderTextColor={colors.textSecondary}
             />
+            {parseInt(personCount) > 1 && (
+              <Text style={[styles.discountText, { fontFamily: 'Sen_400Regular' }]}>
+                {`${calculateGroupDiscount(parseInt(personCount))}% Grup Abonelik İndirimi`}
+              </Text>
+            )}
           </View>
 
           <View style={styles.section}>
@@ -253,5 +258,10 @@ const styles = StyleSheet.create({
   mealsText: {
     fontSize: 14,
     color: colors.textSecondary,
+  },
+  discountText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginTop: 8,
   },
 }); 

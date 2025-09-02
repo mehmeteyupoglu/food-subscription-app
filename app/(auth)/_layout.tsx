@@ -54,7 +54,7 @@ function AuthLayoutContent() {
   const handleSkip = () => {
     // TODO: Navigate to main app without login
     console.log("Skip login");
-    router.replace("/(home)/Home");
+    router.replace("/(tabs)/home");
   };
 
   const handleBackPress = () => {
