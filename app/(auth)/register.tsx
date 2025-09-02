@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { Link, router } from "expo-router";
 
@@ -12,23 +12,28 @@ import OTPInput from "@/components/ui/inputs/OTPInput";
 import PhoneInput, {
   validateTurkishPhoneNumber,
 } from "@/components/ui/inputs/PhoneInput";
+import { apiSignUp } from "@/services/AuthService";
+import { API_CONFIG } from "@/services/config";
+import type { RegisterRequest } from "@/services/types";
 
 type Step = "register" | "verification";
 
 interface FormData {
   firstName: string;
   lastName: string;
+  email: string;
   phoneNumber: string;
   password: string;
   confirmPassword: string;
   verificationCode: string;
 }
 
-export default function Register() {
+function Register() {
   const [step, setStep] = useState<Step>("register");
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
+    email: "",
     phoneNumber: "",
     password: "",
     confirmPassword: "",
@@ -36,6 +41,7 @@ export default function Register() {
   });
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -56,6 +62,10 @@ export default function Register() {
       newErrors.lastName = "Soyad alanı zorunludur";
     }
 
+    if (formData.email.trim() && !/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Geçerli bir e-posta adresi giriniz";
+    }
+
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = "Telefon numarası zorunludur";
     } else if (!validateTurkishPhoneNumber(formData.phoneNumber)) {
@@ -74,6 +84,8 @@ export default function Register() {
       newErrors.confirmPassword = "Şifreler eşleşmiyor";
     }
 
+
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -88,11 +100,42 @@ export default function Register() {
     return true;
   };
 
-  const handleRegisterStep = () => {
+  const handleRegisterStep = async () => {
     if (validateRegistrationForm()) {
-      // TODO: Implement send SMS code logic
-      console.log("Sending verification code to:", formData.phoneNumber);
-      setStep("verification");
+      setIsLoading(true);
+      try {
+        const registerData: RegisterRequest = {
+          email: formData.email.trim() || undefined,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phoneNumber,
+          password: formData.password
+        };
+
+        const response = await apiSignUp(registerData);
+        console.log("Registration successful:", response);
+
+        // For now, we'll skip SMS verification and go directly to login
+        // In a real app, you might want to implement SMS verification
+        Alert.alert(
+          "Başarılı!",
+          "Hesabınız başarıyla oluşturuldu. Giriş yapabilirsiniz.",
+          [
+            {
+              text: "Tamam",
+              onPress: () => router.replace("/login"),
+            },
+          ]
+        );
+      } catch (error) {
+        console.error("Registration error:", error);
+        Alert.alert(
+          "Hata",
+          "Kayıt işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin."
+        );
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -108,6 +151,41 @@ export default function Register() {
   const handleResendCode = () => {
     // TODO: Implement resend code logic
     console.log("Resending code to:", formData.phoneNumber);
+  };
+
+  const testApiConnection = async () => {
+    try {
+      console.log('🧪 Testing API connection to:', API_CONFIG.BASE_URL);
+
+      const response = await fetch(`${API_CONFIG.BASE_URL}/health`);
+      const data = await response.text();
+
+      console.log('✅ API Health Check Response:', {
+        status: response.status,
+        statusText: response.statusText,
+        data: data,
+        url: `${API_CONFIG.BASE_URL}/health`
+      });
+
+      Alert.alert(
+        "API Test Başarılı!",
+        `Status: ${response.status}\nResponse: ${data}`,
+        [{ text: "Tamam" }]
+      );
+    } catch (error: any) {
+      console.error('❌ API Health Check Failed:', {
+        message: error.message,
+        code: error.code,
+        name: error.name,
+        url: `${API_CONFIG.BASE_URL}/health`
+      });
+
+      Alert.alert(
+        "API Test Başarısız",
+        `Hata: ${error.message}\nURL: ${API_CONFIG.BASE_URL}/health`,
+        [{ text: "Tamam" }]
+      );
+    }
   };
 
   const getStepContent = () => {
@@ -134,6 +212,16 @@ export default function Register() {
                 error={errors.lastName}
               />
 
+              <CustomTextInput
+                label="E-POSTA ADRESİNİZ (İSTEĞE BAĞLI)"
+                value={formData.email}
+                onChangeText={value => handleInputChange("email", value)}
+                placeholder="ahmet.yilmaz@example.com"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                error={errors.email}
+              />
+
               <PhoneInput
                 label="TELEFON NUMARANIZ"
                 value={formData.phoneNumber}
@@ -141,6 +229,8 @@ export default function Register() {
                 placeholder="505 123 45 67"
                 error={errors.phoneNumber}
               />
+
+
 
               <CustomTextInput
                 label="ŞİFRENİZ"
@@ -164,10 +254,23 @@ export default function Register() {
 
               <View style={styles.buttonContainer}>
                 <CustomButton
-                  title="KAYDOL"
+                  title={isLoading ? "KAYDEDİLİYOR..." : "KAYDOL"}
                   onPress={handleRegisterStep}
                   variant="primary"
+                  disabled={isLoading}
                 />
+              </View>
+
+              {/* API Test Button */}
+              <View style={styles.testButtonContainer}>
+                <CustomButton
+                  title="🧪 API Bağlantısını Test Et"
+                  onPress={testApiConnection}
+                  variant="secondary"
+                />
+                <Text style={styles.testButtonText}>
+                  API URL: {API_CONFIG.BASE_URL}
+                </Text>
               </View>
 
               <View style={styles.loginContainer}>
@@ -236,6 +339,16 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 24,
   },
+  testButtonContainer: {
+    marginBottom: 24,
+    alignItems: "center",
+  },
+  testButtonText: {
+    fontSize: 12,
+    color: colors.textSecondary,
+    marginTop: 8,
+    textAlign: "center",
+  },
   loginContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -269,4 +382,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     letterSpacing: 1,
   },
+
 });
+
+export default Register;

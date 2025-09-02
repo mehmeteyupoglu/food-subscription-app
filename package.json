@@ -1,5 +1,5 @@
 {
-  "name": "foodinpack",
+  "name": "foodinbox",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -17,6 +17,8 @@
     "@expo/vector-icons": "^14.1.0",
     "@gorhom/bottom-sheet": "^5.1.8",
     "@react-native-picker/picker": "^2.11.1",
+    "@types/axios": "^0.9.36",
+    "axios": "^1.11.0",
     "expo": "53.0.20",
     "expo-constants": "~17.1.7",
     "expo-font": "~13.3.2",

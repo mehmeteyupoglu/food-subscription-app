@@ -1,6 +1,6 @@
 export const BUSINESS_INFO = {
-  name: "BİTAT CAFE & RESTAURANT",
-  address: "Kılıçarslan Mahallesi, İzzet Baysal, Hastanesi Bulvarı No 59 C, 14400 Bolu Merkez/Bolu",
-  fixedPhone: "(0374) 202 10 11",
-  whatsapp: "(0507) 681 03 70",
-}; 
+  name: "DUMMY COFFEE HOUSE",
+  address: "123 Main Street, Downtown, 10000 Sample City/Country",
+  fixedPhone: "(0123) 456 78 90",
+  whatsapp: "(0987) 654 32 10",
+};
