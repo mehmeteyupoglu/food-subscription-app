@@ -13,7 +13,6 @@ import PhoneInput, {
   validateTurkishPhoneNumber,
 } from "@/components/ui/inputs/PhoneInput";
 import { apiSignUp } from "@/services/AuthService";
-import { API_CONFIG } from "@/services/config";
 import type { RegisterRequest } from "@/services/types";
 
 type Step = "register" | "verification";
@@ -153,40 +152,7 @@ function Register() {
     console.log("Resending code to:", formData.phoneNumber);
   };
 
-  const testApiConnection = async () => {
-    try {
-      console.log('🧪 Testing API connection to:', API_CONFIG.BASE_URL);
 
-      const response = await fetch(`${API_CONFIG.BASE_URL}/health`);
-      const data = await response.text();
-
-      console.log('✅ API Health Check Response:', {
-        status: response.status,
-        statusText: response.statusText,
-        data: data,
-        url: `${API_CONFIG.BASE_URL}/health`
-      });
-
-      Alert.alert(
-        "API Test Başarılı!",
-        `Status: ${response.status}\nResponse: ${data}`,
-        [{ text: "Tamam" }]
-      );
-    } catch (error: any) {
-      console.error('❌ API Health Check Failed:', {
-        message: error.message,
-        code: error.code,
-        name: error.name,
-        url: `${API_CONFIG.BASE_URL}/health`
-      });
-
-      Alert.alert(
-        "API Test Başarısız",
-        `Hata: ${error.message}\nURL: ${API_CONFIG.BASE_URL}/health`,
-        [{ text: "Tamam" }]
-      );
-    }
-  };
 
   const getStepContent = () => {
     switch (step) {
@@ -261,17 +227,7 @@ function Register() {
                 />
               </View>
 
-              {/* API Test Button */}
-              <View style={styles.testButtonContainer}>
-                <CustomButton
-                  title="🧪 API Bağlantısını Test Et"
-                  onPress={testApiConnection}
-                  variant="secondary"
-                />
-                <Text style={styles.testButtonText}>
-                  API URL: {API_CONFIG.BASE_URL}
-                </Text>
-              </View>
+
 
               <View style={styles.loginContainer}>
                 <Text style={styles.loginText}>Hesabınız var mı? </Text>
@@ -339,16 +295,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 24,
   },
-  testButtonContainer: {
-    marginBottom: 24,
-    alignItems: "center",
-  },
-  testButtonText: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    marginTop: 8,
-    textAlign: "center",
-  },
+
   loginContainer: {
     flexDirection: "row",
     justifyContent: "center",

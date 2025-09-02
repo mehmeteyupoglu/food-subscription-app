@@ -12,9 +12,7 @@ export {
 
 // Types
 export type {
-    Address, ApiErrorResponse, CreateOrderRequest, CreatePaymentRequest, CreateSubscriptionRequest, ForgotPasswordRequest,
-    LoginRequest, LoginResponse, MealPreferences, Order, OrderItem, OrderStatus,
-    PaginatedResponse, Payment, PaymentMethod, PaymentStatus, RegisterRequest,
-    RegisterResponse, ResetPasswordRequest, SubscriptionStatus, UpdateSubscriptionRequest
+    ApiErrorResponse, ForgotPasswordRequest, LoginRequest, LoginResponse,
+    RegisterRequest, RegisterResponse, ResetPasswordRequest
 } from './types';
 
